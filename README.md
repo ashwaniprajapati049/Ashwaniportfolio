@@ -88,7 +88,7 @@ This project is licensed under the MIT License.
 
 Email: prajapatiashwani62@gmail.com
 
-GitHub:[ https://github.com/YOUR_USERNAME](https://github.com/ashwaniprajapati049)
+GitHub:(https://github.com/ashwaniprajapati049)
 
 LinkedIn:(https://www.linkedin.com/in/ashwani-prajapati-43744222a/)
 ⭐ Thanks for visiting my portfolio!
