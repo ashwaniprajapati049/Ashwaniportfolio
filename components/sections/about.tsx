@@ -221,7 +221,7 @@ export function AboutSection() {
                 className="bg-gradient-to-r from-primary to-secondary hover:from-primary/80 hover:to-secondary/80 text-primary-foreground"
               >
                 <a
-                  href="https://drive.google.com/file/d/1f6y5YZqwt225GS052ogCCbmP3AL7paa6/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1HVuTCTX8wUFEttt3ZmEBlVoA4w-h3SCD/view?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
