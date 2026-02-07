@@ -47,7 +47,7 @@ const experiences = [
     color: "from-blue-500 to-indigo-600",
   },
   {
-    role: "Web Development Trainee",
+    role: "Web Development Internship",
     company: "GeeksforGeeks (GFG) – MANIT Bhopal",
     duration: "2024",
     description:
@@ -64,7 +64,7 @@ const experiences = [
     color: "from-green-600 to-emerald-700",
   },
   {
-    role: "Java Developer Trainee",
+    role: "Java Developer Internship",
     company: "CodSoft",
     duration: "2024",
     description:
