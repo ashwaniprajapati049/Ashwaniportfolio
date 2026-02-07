@@ -236,7 +236,7 @@ export function AboutSection() {
                 variant="outline"
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               >
-                <a href="mailto:prajapatiashwani62@gmail.com">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=prajapatiashwani62@gmail.com">
                   <FaEnvelope className="mr-2 h-4 w-4" />
                   Contact Me
                 </a>

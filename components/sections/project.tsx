@@ -44,7 +44,7 @@ const projects: Project[] = [
       "HTML",
       "CSS",
     ],
-    github: "https://github.com/yourusername/smart-dues-management",
+    github: "https://github.com/ashwaniprajapati049",
     live: "",
   },
   {
@@ -57,7 +57,7 @@ const projects: Project[] = [
     details:
       "Built an interactive Snake Game using Java Swing with real-time movement, collision detection, scoring system, and game-over logic. Used JFrame, JPanel, and a Timer loop to ensure smooth rendering and gameplay.",
     technologies: ["Java", "Swing", "JFrame", "JPanel", "Game Logic"],
-    github: "https://github.com/yourusername/snake-game-java",
+    github: "https://github.com/ashwaniprajapati049",
     live: "",
   },
   {
@@ -71,7 +71,7 @@ const projects: Project[] = [
     details:
       "Developed a real-time weather monitoring system that displays live data such as temperature, humidity, and rainfall. Integrated live data sources and ensured accurate data processing with a clean, user-friendly interface for instant visualization.",
     technologies: ["Java", "OOP", "APIs", "Data Processing"],
-    github: "https://github.com/yourusername/weather-monitoring-system",
+    github: "https://github.com/ashwaniprajapati049",
     live: "",
   },
 

@@ -12,6 +12,8 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+const GITHUB_URL = "https://github.com/ashwaniprajapati049";
+const LINKEDIN_URL = "https://www.linkedin.com/in/ashwani-prajapati-43744222a/";
 
 // Define the type for an experience
 type Experience = {
@@ -126,11 +128,10 @@ export function ExperienceSection() {
     useState<Experience | null>(null);
 
   return (
-   <section
-  id="experiences"
-  className="py-24 min-h-screen bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800"
->
-
+    <section
+      id="experiences"
+      className="py-24 min-h-screen bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800"
+    >
       <div className="container px-4 mx-auto">
         <motion.div
           initial="hidden"
@@ -140,10 +141,10 @@ export function ExperienceSection() {
           className="flex flex-col items-center"
         >
           <motion.div variants={cardVariants} className="text-center mb-12">
-            <h2  className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
               Work Experience
             </h2>
-           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               A selection of my recent professional roles where I have grown my
               skills and worked on exciting projects.
             </p>
@@ -209,28 +210,55 @@ export function ExperienceSection() {
                       View Details
                     </Button>
                     <Button
+                      asChild
                       variant="outline"
                       size="icon"
                       className="bg-white text-gray-800 border-white/70 hover:bg-gray-900 hover:text-white"
                     >
-                      <GitHub className="h-5 w-5" />
+                      <a
+                        href={GITHUB_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <GitHub className="h-5 w-5" />
+                      </a>
                     </Button>
 
                     <Button
+                      asChild
                       variant="outline"
                       size="icon"
                       className="bg-white text-gray-800 border-white/70 hover:bg-gray-900 hover:text-white"
                     >
-                      <Linkedin className="h-5 w-5" />
+                      <a
+                        href={LINKEDIN_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </a>
                     </Button>
 
                     <Button
-                      variant="outline"
-                      size="icon"
-                      className="bg-white text-gray-800 border-white/70 hover:bg-gray-900 hover:text-white"
-                    >
-                      <Mail className="h-5 w-5" />
-                    </Button>
+  variant="secondary"
+  className="bg-white text-gray-800 hover:bg-gray-200"
+  onClick={() => {
+ 
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    
+    setTimeout(() => {
+      setSelectedExperience(null);
+    });
+  }}
+>
+  <Mail className="mr-2 h-5 w-5" />
+  Contact
+</Button>
+
                   </div>
                 </Card>
               </motion.div>
@@ -298,15 +326,31 @@ export function ExperienceSection() {
               </div>
               <div className="flex justify-end space-x-4">
                 <Button
+                  asChild
                   variant="secondary"
                   className="bg-white text-gray-800 hover:bg-gray-200"
                 >
-                  <GitHub className="mr-2 h-5 w-5" />
-                  View Project
+                  <a
+                    href="https://github.com/ashwaniprajapati049"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center"
+                  >
+                    <GitHub className="mr-2 h-5 w-5" />
+                    View Project
+                  </a>
                 </Button>
                 <Button
                   variant="secondary"
                   className="bg-white text-gray-800 hover:bg-gray-200"
+                  onClick={() => {
+                    setSelectedExperience(null); // close modal
+                    setTimeout(() => {
+                      document.getElementById("contact")?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }, 200);
+                  }}
                 >
                   <Mail className="mr-2 h-5 w-5" />
                   Contact

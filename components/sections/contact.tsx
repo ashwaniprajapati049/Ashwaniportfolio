@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { FaPaperPlane, FaCheckCircle } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
+
 
 // Define types for form state and errors
 type FormState = {
@@ -43,16 +45,36 @@ export function ContactSection() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      setIsSubmitting(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({ name: "", email: "", message: "" }); // Reset form
-    }
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  setIsSubmitting(true);
+
+  try {
+    await emailjs.send(
+      "service_kw2clsc",      
+      "template_hdyrcts",     
+      {
+        name: formState.name,       
+        email: formState.email,    
+        message: formState.message,
+      },
+      "VNQV_JvESC2SD40d1"     
+    );
+
+    setIsSubmitted(true);
+    setFormState({ name: "", email: "", message: "" });
+  } catch (error) {
+    console.error("EmailJS error:", error);
+    alert(JSON.stringify(error));
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -99,7 +121,7 @@ export function ContactSection() {
               >
                 <FaCheckCircle className="w-16 h-16 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">Thank You!</h3>
-                <p>Your message has been sent successfully. We'll get back to you soon.</p>
+                <p>Your message has been sent successfully. We will get back to you soon.</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit}>
