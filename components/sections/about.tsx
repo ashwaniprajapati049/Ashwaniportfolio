@@ -65,7 +65,7 @@ export function AboutSection() {
             >
               <div className="relative w-full h-full rounded-2xl overflow-hidden bg-white/10 backdrop-blur-sm flex items-center justify-center">
                 <Image
-                  src="https://res.cloudinary.com/dwciao4x3/image/upload/v1769605888/pic_pic-removebg-preview_brsxe6.png"
+                  src="https://res.cloudinary.com/dwciao4x3/image/upload/v1770545627/propic_y5fxlc.jpg"
                   alt="Ashwani Prajapati"
                   fill
                   priority
