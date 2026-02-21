@@ -65,7 +65,7 @@ export function AboutSection() {
             >
               <div className="relative w-full h-full rounded-2xl overflow-hidden bg-white/10 backdrop-blur-sm flex items-center justify-center">
                 <Image
-                  src="https://res.cloudinary.com/dwciao4x3/image/upload/v1770545627/propic_y5fxlc.jpg"
+                  src="https://res.cloudinary.com/dwciao4x3/image/upload/v1771653726/ChatGPT_Image_Feb_21_2026_11_01_41_AM_f3vjxa.png"
                   alt="Ashwani Prajapati"
                   fill
                   priority
