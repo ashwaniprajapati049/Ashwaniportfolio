@@ -3,19 +3,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import {
-  GitlabIcon as GitHub,
-  Linkedin,
-  Mail,
-  Calendar,
-  X,
-} from "lucide-react";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { GitlabIcon as GitHub, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
+
 const GITHUB_URL = "https://github.com/ashwaniprajapati049";
 const LINKEDIN_URL = "https://www.linkedin.com/in/ashwani-prajapati-43744222a/";
 
-// Define the type for an experience
 type Experience = {
   role: string;
   company: string;
@@ -23,341 +23,334 @@ type Experience = {
   description: string;
   technologies: string[];
   companyLogo: string;
-  color: string;
+  accent: string;
+  badgeBg: string;
+  badgeText: string;
 };
 
-const experiences = [
+const experiences: Experience[] = [
   {
-    role: "SDE Trainee",
+    role: "Software Engineer",
+    company: "CA-One Tech",
+    duration: "Feb 2025 – Present",
+    description:
+      "Working as a Frontend Engineer, developing scalable and user-friendly web applications. Responsible for building dynamic UI components, optimizing performance, and integrating APIs. Collaborating with backend teams to deliver seamless user experiences in a production environment.",
+    technologies: ["Angular", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "REST APIs"],
+    companyLogo: "https://res.cloudinary.com/dwciao4x3/image/upload/v1775746071/caone_logo_lvl3gk.png",
+    accent: "#D85A30",
+    badgeBg: "#FAECE7",
+    badgeText: "#712B13",
+  },
+  {
+    role: "Software Trainee",
     company: "Intellibuddies – VIT Infotech",
-    duration: "Mar 2025 - Jan 2026",
+    duration: "Mar 2025 – Jan 2026",
     description:
       "Worked on enterprise-level control room dashboards, developing responsive UI components using Angular and TypeScript. Integrated frontend with backend APIs and contributed to backend logic using C# and .NET. Actively participated in Agile ceremonies including sprint planning, stand-ups, and code reviews.",
-    technologies: [
-      "Angular",
-      "TypeScript",
-      "HTML",
-      "CSS",
-      "C#",
-      ".NET",
-      "REST APIs",
-    ],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383257/vit_infotech_logo_ukawu0.jpg",
-    color: "from-blue-500 to-indigo-600",
+    technologies: ["Angular", "TypeScript", "HTML", "CSS", "C#", ".NET", "REST APIs"],
+    companyLogo: "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383257/vit_infotech_logo_ukawu0.jpg",
+    accent: "#378ADD",
+    badgeBg: "#E6F1FB",
+    badgeText: "#0C447C",
   },
   {
     role: "Web Development Internship",
-    company: "GeeksforGeeks (GFG) – MANIT Bhopal",
+    company: "GeeksforGeeks – MANIT Bhopal",
     duration: "2024",
     description:
       "Completed hands-on Web Development training covering frontend and backend fundamentals. Worked on building responsive web interfaces, understanding core web technologies, and implementing practical projects as part of structured training.",
-    technologies: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Web Development",
-      "Problem Solving",
-    ],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383608/GG_Logo_tcir8i.png",
-    color: "from-green-600 to-emerald-700",
+    technologies: ["HTML", "CSS", "JavaScript", "Web Development", "Problem Solving"],
+    companyLogo: "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383608/GG_Logo_tcir8i.png",
+    accent: "#1D9E75",
+    badgeBg: "#E1F5EE",
+    badgeText: "#085041",
   },
-  {
-    role: "Java Developer Internship",
-    company: "CodSoft",
-    duration: "2024",
-    description:
-      "Completed hands-on Java development training with a strong focus on core Java concepts such as OOP, collections, exception handling, and problem-solving. Built mini-projects and practiced real-world coding scenarios.",
-    technologies: [
-      "Java",
-      "OOP",
-      "Collections",
-      "Exception Handling",
-      "Problem Solving",
-    ],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383175/codsoft_o2rcjl.jpg",
-    color: "from-emerald-500 to-teal-600",
-  },
-
   {
     role: "Student Coordinator",
     company: "Radharaman Institute of Technology & Science",
     duration: "2023 – 2024",
     description:
       "Served as a student coordinator, assisting in organizing academic and technical activities, coordinating between faculty and students, and supporting smooth execution of college-level events and initiatives.",
-    technologies: [
-      "Leadership",
-      "Communication",
-      "Event Coordination",
-      "Team Collaboration",
-    ],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383649/images_q7zyls.jpg",
-    color: "from-purple-600 to-indigo-700",
+    technologies: ["Leadership", "Communication", "Event Coordination", "Team Collaboration"],
+    companyLogo: "https://res.cloudinary.com/dwciao4x3/image/upload/v1775745822/log_rgi_omhvjg.jpg",
+    accent: "#7F77DD",
+    badgeBg: "#EEEDFE",
+    badgeText: "#3C3489",
   },
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.3,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 12,
-    },
-  },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 export function ExperienceSection() {
-  const [selectedExperience, setSelectedExperience] =
-    useState<Experience | null>(null);
+  const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
+
+  const scrollToContact = () => {
+    setSelectedExperience(null);
+    setTimeout(() => {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    }, 200);
+  };
 
   return (
-    <section
-      id="experiences"
-      className="py-24 min-h-screen bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800"
-    >
-      <div className="container px-4 mx-auto">
+    <section id="experiences" className="py-24 bg-background">
+      <div className="container mx-auto px-4 max-w-6xl">
+
+        {/* Header */}
+        <div className="text-center mb-14">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3"
+          >
+            My journey
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.05 }}
+            className="text-4xl font-bold text-foreground mb-4"
+          >
+            Work Experience
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed"
+          >
+            A selection of my recent professional roles where I have grown my
+            skills and worked on exciting projects.
+          </motion.p>
+        </div>
+
+        {/* Cards */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           variants={containerVariants}
-          className="flex flex-col items-center"
+          className="grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
         >
-          <motion.div variants={cardVariants} className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              Work Experience
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              A selection of my recent professional roles where I have grown my
-              skills and worked on exciting projects.
-            </p>
-          </motion.div>
+          {experiences.map((exp) => (
+            <motion.div
+              key={exp.company}
+              variants={cardVariants}
+              whileHover={{ y: -4 }}
+              className="group rounded-xl border border-border bg-card overflow-hidden cursor-pointer flex flex-col"
+              onClick={() => setSelectedExperience(exp)}
+            >
+              {/* Accent stripe */}
+              <div className="h-1 w-full" style={{ background: exp.accent }} />
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-            {experiences.map((experience, index) => (
-              <motion.div
-                key={experience.company}
-                variants={cardVariants}
-                whileHover={{ scale: 1.05, rotate: [0, 1, -1, 0] }}
-                className="w-full max-w-sm"
-              >
-                <Card
-                  className={`p-6 bg-gradient-to-br ${experience.color} shadow-xl rounded-lg h-full flex flex-col justify-between transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2`}
-                  onClick={() => setSelectedExperience(experience)}
-                >
-                  <div>
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="w-12 h-12 relative rounded-full overflow-hidden bg-white p-1">
-                        <Image
-                          src={experience.companyLogo}
-                          alt={experience.company}
-                          layout="fill"
-                          // objectFit="cover"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-white">
-                          {experience.role}
-                        </h3>
-                        <p className="text-sm text-gray-200">
-                          {experience.company}
-                        </p>
-                        <p className="text-sm text-gray-200">
-                          {experience.duration}
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="text-sm text-gray-100 mb-4">
-                      {experience.description}
+              <div className="p-5 flex flex-col flex-1">
+                {/* Logo + meta */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 relative rounded-lg overflow-hidden border border-border bg-white flex-shrink-0">
+                    <Image
+                      src={exp.companyLogo}
+                      alt={exp.company}
+                      fill
+                      className="object-contain p-0.5"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-foreground text-sm leading-snug truncate">
+                      {exp.role}
+                    </h3>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {exp.company}
                     </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {experience.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm text-white"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   </div>
+                </div>
 
-                  <div className="flex flex-wrap gap-4 mt-auto">
-                    <Button
-                      variant="secondary"
-                      className="flex-1 bg-white text-gray-800 hover:bg-gray-200"
+                {/* Duration badge */}
+                <span
+                  className="inline-flex items-center self-start text-[11px] font-medium px-2 py-0.5 rounded-full mb-3"
+                  style={{ background: exp.badgeBg, color: exp.badgeText }}
+                >
+                  {exp.duration}
+                </span>
+
+                {/* Description */}
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-4 flex-1">
+                  {exp.description}
+                </p>
+
+                {/* Tech pills */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {exp.technologies.slice(0, 3).map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[11px] px-2 py-0.5 rounded-full font-medium"
+                      style={{ background: exp.badgeBg, color: exp.badgeText }}
                     >
-                      <Calendar className="mr-2 h-4 w-4" />
-                      View Details
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="icon"
-                      className="bg-white text-gray-800 border-white/70 hover:bg-gray-900 hover:text-white"
+                      {tech}
+                    </span>
+                  ))}
+                  {exp.technologies.length > 3 && (
+                    <span
+                      className="text-[11px] px-2 py-0.5 rounded-full font-medium"
+                      style={{ background: exp.badgeBg, color: exp.badgeText }}
                     >
-                      <a
-                        href={GITHUB_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <GitHub className="h-5 w-5" />
-                      </a>
-                    </Button>
+                      +{exp.technologies.length - 3}
+                    </span>
+                  )}
+                </div>
 
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="icon"
-                      className="bg-white text-gray-800 border-white/70 hover:bg-gray-900 hover:text-white"
-                    >
-                      <a
-                        href={LINKEDIN_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </a>
-                    </Button>
-
-                    <Button
-  variant="secondary"
-  className="bg-white text-gray-800 hover:bg-gray-200"
-  onClick={() => {
- 
-    document.getElementById("contact")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    
-    setTimeout(() => {
-      setSelectedExperience(null);
-    });
-  }}
->
-  <Mail className="mr-2 h-5 w-5" />
-  Contact
-</Button>
-
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                {/* Footer actions */}
+                <div className="flex gap-2 mt-auto pt-3 border-t border-border">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 text-xs h-8"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedExperience(exp);
+                    }}
+                  >
+                    View details
+                  </Button>
+                  <Button
+                    asChild
+                    size="icon"
+                    variant="outline"
+                    className="h-8 w-8 flex-shrink-0"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+                      <GitHub className="h-3.5 w-3.5" />
+                    </a>
+                  </Button>
+                  <Button
+                    asChild
+                    size="icon"
+                    variant="outline"
+                    className="h-8 w-8 flex-shrink-0"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-3.5 w-3.5" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
 
+      {/* Detail Modal */}
       <AnimatePresence>
         {selectedExperience && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-            onClick={() => setSelectedExperience(null)}
+          <Dialog
+            open={!!selectedExperience}
+            onOpenChange={() => setSelectedExperience(null)}
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className={`bg-gradient-to-br ${selectedExperience.color} p-8 rounded-lg shadow-2xl max-w-2xl w-full`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h2 className="text-3xl font-bold text-white mb-2">
-                    {selectedExperience.role}
-                  </h2>
-                  <p className="text-xl text-gray-200">
-                    {selectedExperience.company}
-                  </p>
-                </div>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="
-    bg-white
-    text-gray-800
-    border-white/70
-    hover:bg-gray-900
-    hover:text-white
-    transition-colors
-  "
-                  onClick={() => setSelectedExperience(null)}
-                >
-                  <X className="h-6 w-6" />
-                </Button>
-              </div>
-              <p className="text-gray-100 mb-4">
-                {selectedExperience.description}
-              </p>
-              <p className="text-gray-200 mb-4">
-                {selectedExperience.duration}
-              </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {selectedExperience.technologies.map((tech) => (
+            <DialogContent className="sm:max-w-[580px] p-0 overflow-hidden rounded-xl">
+              {/* Accent stripe */}
+              <div className="h-1 w-full" style={{ background: selectedExperience.accent }} />
+
+              <div className="px-6 py-6">
+                <DialogHeader className="mb-5">
+                  {/* Logo + title */}
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="w-12 h-12 relative rounded-xl overflow-hidden border border-border bg-white flex-shrink-0">
+                      <Image
+                        src={selectedExperience.companyLogo}
+                        alt={selectedExperience.company}
+                        fill
+                        className="object-contain p-1"
+                      />
+                    </div>
+                    <div>
+                      <DialogTitle className="text-lg font-semibold text-foreground leading-snug">
+                        {selectedExperience.role}
+                      </DialogTitle>
+                      <p className="text-sm text-muted-foreground">
+                        {selectedExperience.company}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Duration */}
                   <span
-                    key={tech}
-                    className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm text-white"
+                    className="inline-flex self-start text-[11px] font-medium px-2.5 py-0.5 rounded-full"
+                    style={{
+                      background: selectedExperience.badgeBg,
+                      color: selectedExperience.badgeText,
+                    }}
                   >
-                    {tech}
+                    {selectedExperience.duration}
                   </span>
-                ))}
-              </div>
-              <div className="flex justify-end space-x-4">
-                <Button
-                  asChild
-                  variant="secondary"
-                  className="bg-white text-gray-800 hover:bg-gray-200"
-                >
-                  <a
-                    href="https://github.com/ashwaniprajapati049"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center"
+
+                  <DialogDescription className="text-sm text-muted-foreground leading-relaxed mt-3">
+                    {selectedExperience.description}
+                  </DialogDescription>
+                </DialogHeader>
+
+                {/* Technologies */}
+                <div className="mb-6">
+                  <p
+                    className="text-[10px] font-semibold uppercase tracking-widest mb-2"
+                    style={{ color: selectedExperience.accent }}
                   >
-                    <GitHub className="mr-2 h-5 w-5" />
-                    View Project
-                  </a>
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="bg-white text-gray-800 hover:bg-gray-200"
-                  onClick={() => {
-                    setSelectedExperience(null); // close modal
-                    setTimeout(() => {
-                      document.getElementById("contact")?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                    }, 200);
-                  }}
-                >
-                  <Mail className="mr-2 h-5 w-5" />
-                  Contact
-                </Button>
+                    Technologies
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedExperience.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs px-2.5 py-1 rounded-full font-medium"
+                        style={{
+                          background: selectedExperience.badgeBg,
+                          color: selectedExperience.badgeText,
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 pt-4 border-t border-border">
+                  <Button asChild variant="outline" size="sm" className="gap-2">
+                    <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+                      <GitHub className="h-3.5 w-3.5" />
+                      GitHub
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" size="sm" className="gap-2">
+                    <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-3.5 w-3.5" />
+                      LinkedIn
+                    </a>
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="gap-2 ml-auto"
+                    onClick={scrollToContact}
+                  >
+                    <Mail className="h-3.5 w-3.5" />
+                    Contact
+                  </Button>
+                </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </DialogContent>
+          </Dialog>
         )}
       </AnimatePresence>
     </section>
