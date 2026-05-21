@@ -3,286 +3,481 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { FaDownload, FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+
+import {
+  Download,
+  Mail,
+  Github,
+  Linkedin,
+  MapPin,
+  Briefcase,
+  GraduationCap,
+  ChevronDown,
+  ChevronUp,
+  Trophy,
+  Brain,
+  BookOpen,
+  Lightbulb,
+  Code2,
+  Sparkles,
+} from "lucide-react";
+
 import Image from "next/image";
 
 const SKILLS = [
-  { name: "Java", accent: "#D85A30", badgeBg: "#FAECE7", badgeText: "#712B13" },
-  { name: "Spring Boot", accent: "#1D9E75", badgeBg: "#E1F5EE", badgeText: "#085041" },
-  { name: "Angular", accent: "#E24B4A", badgeBg: "#FCEBEB", badgeText: "#791F1F" },
-  { name: "TypeScript", accent: "#378ADD", badgeBg: "#E6F1FB", badgeText: "#0C447C" },
-  { name: "C#", accent: "#7F77DD", badgeBg: "#EEEDFE", badgeText: "#3C3489" },
-  { name: ".NET", accent: "#7F77DD", badgeBg: "#EEEDFE", badgeText: "#3C3489" },
-  { name: "CI/CD", accent: "#BA7517", badgeBg: "#FAEEDA", badgeText: "#633806" },
-  { name: "UI/UX Design", accent: "#D4537E", badgeBg: "#FBEAF0", badgeText: "#72243E" },
+  { name: "Java", bg: "#FAECE7", text: "#712B13" },
+  { name: "Spring Boot", bg: "#E1F5EE", text: "#085041" },
+  { name: "Angular", bg: "#FCEBEB", text: "#791F1F" },
+  { name: "TypeScript", bg: "#E6F1FB", text: "#0C447C" },
+  { name: "C#", bg: "#EEEDFE", text: "#3C3489" },
+  { name: ".NET", bg: "#EEEDFE", text: "#3C3489" },
+  { name: "MySQL", bg: "#E1F5EE", text: "#085041" },
+  { name: "Git", bg: "#FAEEDA", text: "#633806" },
+  { name: "REST APIs", bg: "#E6F1FB", text: "#0C447C" },
+  { name: "Tailwind CSS", bg: "#FBEAF0", text: "#72243E" },
 ];
 
 const INTERESTS = [
-  { icon: "♟️", label: "Strategic Chess" },
-  { icon: "🧩", label: "Problem Solving" },
-  { icon: "📚", label: "Technical Reading" },
-  { icon: "🔍", label: "Exploring New Ideas" },
+  { icon: Trophy, label: "Strategic Chess" },
+  { icon: Brain, label: "Problem Solving" },
+  { icon: BookOpen, label: "Technical Reading" },
+  { icon: Lightbulb, label: "Exploring New Ideas" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
+const STATS = [
+  { num: "1+", label: "Years Experience" },
+  { num: "2", label: "Companies" },
+  { num: "3+", label: "Projects" },
+  { num: "6+", label: "Technologies" },
+];
 
 export function AboutSection() {
-  const [activeSkill, setActiveSkill] = useState<string | null>(null);
   const [showBio, setShowBio] = useState(false);
 
   return (
-    <section id="about" className="py-24 bg-background overflow-hidden">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <section
+      id="about"
+      className="
+        relative overflow-hidden
+        py-20 md:py-28
+        bg-gradient-to-b
+        from-background
+        via-background
+        to-green-500/5
+      "
+    >
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+
+      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3"
-          >
-            Who I am
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="text-4xl font-bold text-foreground"
-          >
-            About Me
-          </motion.h2>
-        </div>
-
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={containerVariants}
-          className="grid gap-12 md:grid-cols-2 items-start"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          {/* ── Image Column ── */}
-         <motion.div
-  variants={itemVariants}
-  className="flex flex-col items-center gap-4"
->
-  <div className="relative w-[280px] sm:w-[320px]">
-    
-    {/* PROFILE CARD */}
-    <div className="rounded-2xl border border-border bg-card overflow-hidden">
-      <div className="h-1 w-full bg-gradient-to-r from-[#378ADD] via-[#7F77DD] to-[#D85A30]" />
+          <div>
+             
+          </div>
 
-      <div className="relative w-full aspect-[3/4]">
-        <Image
-          src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
-          alt="Ashwani Prajapati"
-          fill
-          priority
-          className="object-cover"
-        />
-      </div>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Passionate About
+            <span className="block text-green-600 dark:text-green-400">
+              Building Modern Web Apps
+            </span>
+          </h2>
 
-      <div className="px-5 py-4 border-t border-border text-center">
-        <p className="font-semibold text-foreground">Ashwani Prajapati</p>
-        <p className="text-xs text-muted-foreground">
-          Software Engineer · Full Stack
-        </p>
-      </div>
-    </div>
-  </div>
+          <p className="mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
+            A little about my background, technical expertise,
+            and the passion that drives my work as a software engineer.
+          </p>
+        </motion.div>
 
-  {/* ✅ NEW STATS BELOW */}
-  <div className="grid grid-cols-2 gap-4 w-full max-w-[320px]">
-    
-    <div className="rounded-xl border border-border bg-card p-4 text-center hover:shadow-md transition">
-      <p className="text-2xl font-bold text-foreground">1+</p>
-      <p className="text-xs text-muted-foreground mt-1">Years Experience</p>
-    </div>
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8">
 
-    <div className="rounded-xl border border-border bg-card p-4 text-center hover:shadow-md transition">
-      <p className="text-2xl font-bold text-foreground">3+</p>
-      <p className="text-xs text-muted-foreground mt-1">Projects Built</p>
-    </div>
+          {/* LEFT SIDE */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-5"
+          >
+            {/* Profile Card */}
+            <div
+              className="
+                rounded-3xl
+                border border-white/10
+                bg-gradient-to-br
+                from-white/70
+                to-white/40
+                dark:from-zinc-900/80
+                dark:to-zinc-950/60
+                backdrop-blur-xl
+                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+                dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
+                overflow-hidden
+              "
+            >
+              <div className="h-1.5 w-full bg-gradient-to-r from-green-600 via-green-400 to-emerald-300" />
 
-  </div>
-</motion.div>
+              {/* Image */}
+              <div className="relative w-full aspect-[4/5] overflow-hidden">
+                <Image
+                  src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
+                  alt="Ashwani Prajapati"
+                  fill
+                  priority
+                  className="object-cover object-top"
+                />
 
-          {/* ── Content Column ── */}
-          <div className="space-y-8">
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
+              </div>
+
+              {/* Info */}
+              <div className="p-5">
+                <h3 className="text-xl font-semibold tracking-tight">
+                  Ashwani Prajapati
+                </h3>
+
+                <p className="text-sm text-muted-foreground mt-1">
+                  Software Engineer · Full Stack
+                </p>
+
+                <div className="mt-5 space-y-3">
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <MapPin className="h-4 w-4 text-green-500 shrink-0" />
+                    Bengaluru, India
+                  </div>
+
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Briefcase className="h-4 w-4 text-green-500 shrink-0" />
+                    CA-One Tech
+                  </div>
+                </div>
+                 {/* Buttons */}
+                <div className="mt-6 flex flex-col gap-3">
+                  <Button
+                    asChild
+                    className="
+                      w-full rounded-2xl
+                      bg-green-600
+                      hover:bg-green-700
+                      text-white
+                      shadow-lg shadow-green-500/20
+                    "
+                  >
+                    <a
+                      href="https://drive.google.com/file/d/1HVuTCTX8wUFEttt3ZmEBlVoA4w-h3SCD/view?usp=drive_link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download CV
+                    </a>
+                  </Button>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="rounded-2xl"
+                    >
+                      <a
+                        href="https://github.com/ashwaniprajapati049"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="h-4 w-4 mr-2" />
+                        GitHub
+                      </a>
+                    </Button>
+
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="rounded-2xl"
+                    >
+                      <a
+                        href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin className="h-4 w-4 mr-2" />
+                        LinkedIn
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 gap-3">
+              {STATS.map((stat) => (
+                <motion.div
+                  key={stat.label}
+                  whileHover={{ y: -3 }}
+                  className="
+                    rounded-2xl
+                    border border-border
+                    bg-background/50
+                    backdrop-blur-sm
+                    p-4 text-center
+                    hover:border-green-500/30
+                    transition-all duration-300
+                  "
+                >
+                  <p className="text-2xl font-bold">
+                    {stat.num}
+                  </p>
+
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* RIGHT SIDE */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-5"
+          >
 
             {/* Bio */}
-            <motion.div variants={itemVariants} className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="h-1 w-16 bg-[#378ADD] rounded-br-full" />
-              <div className="p-5">
-                <h3 className="font-semibold text-foreground text-base mb-3">Bio</h3>
-                <AnimatePresence mode="wait">
-                  {showBio ? (
-                    <motion.p
-                      key="full"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="text-sm text-muted-foreground leading-relaxed"
-                    >
-                      I am a Java developer with expertise in Angular and .NET frontend, focused on
-                      building visually appealing and high-performing web applications. I enjoy
-                      transforming complex requirements into clean, responsive interfaces using modern
-                      web technologies and best practices. What started as a curiosity for
-                      problem-solving has evolved into a strong commitment to crafting intuitive and
-                      reliable digital experiences.
-                    </motion.p>
-                  ) : (
-                    <motion.p
-                      key="short"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="text-sm text-muted-foreground leading-relaxed"
-                    >
-                      Java developer with hands-on experience in Angular and .NET frontend, focused
-                      on building clean, scalable web interfaces.
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-                <button
-                  onClick={() => setShowBio((v) => !v)}
-                  className="mt-3 text-xs font-semibold text-[#378ADD] hover:underline"
-                >
-                  {showBio ? "Read less" : "Read more"}
-                </button>
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                  <Sparkles className="h-5 w-5 text-green-500" />
+                </div>
+
+                <div>
+                  <h3 className="font-semibold">
+                    Professional Bio
+                  </h3>
+
+                  <p className="text-sm text-muted-foreground">
+                    About my journey & experience
+                  </p>
+                </div>
               </div>
-            </motion.div>
+
+              <AnimatePresence mode="wait">
+                {showBio ? (
+                  <motion.p
+                    key="full"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-sm md:text-base text-muted-foreground leading-relaxed"
+                  >
+                    Full Stack Engineer at CA-One Tech,
+                    Bengaluru, building enterprise-grade Angular
+                    dashboards and Spring Boot APIs.
+                    I enjoy transforming complex requirements
+                    into clean, responsive interfaces using
+                    modern web technologies. What started as
+                    curiosity for problem-solving has grown into
+                    a strong commitment to crafting intuitive
+                    and reliable digital experiences that scale.
+                  </motion.p>
+                ) : (
+                  <motion.p
+                    key="short"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-sm md:text-base text-muted-foreground leading-relaxed"
+                  >
+                    Full Stack Engineer at CA-One Tech,
+                    building enterprise-grade Angular dashboards
+                    and scalable Spring Boot APIs focused on
+                    clean architecture and modern UI systems.
+                  </motion.p>
+                )}
+              </AnimatePresence>
+
+              <button
+                onClick={() =>
+                  setShowBio((v) => !v)
+                }
+                className="
+                  mt-5 inline-flex items-center gap-1.5
+                  text-sm font-semibold
+                  text-green-600 dark:text-green-400
+                  hover:underline
+                "
+              >
+                {showBio ? (
+                  <>
+                    <ChevronUp className="h-4 w-4" />
+                    Read less
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4" />
+                    Read more
+                  </>
+                )}
+              </button>
+            </div>
 
             {/* Skills */}
-            <motion.div variants={itemVariants} className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="h-1 w-16 bg-[#7F77DD] rounded-br-full" />
-              <div className="p-5">
-                <h3 className="font-semibold text-foreground text-base mb-3">Core Skills</h3>
-                <div className="flex flex-wrap gap-2">
-                  {SKILLS.map((skill) => {
-                    const isActive = activeSkill === skill.name;
-                    return (
-                      <motion.button
-                        key={skill.name}
-                        whileHover={{ y: -1 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => setActiveSkill(isActive ? null : skill.name)}
-                        className="text-xs px-3 py-1 rounded-full font-medium transition-all duration-150 border"
-                        style={
-                          isActive
-                            ? {
-                                background: skill.accent,
-                                color: "#fff",
-                                borderColor: skill.accent,
-                              }
-                            : {
-                                background: skill.badgeBg,
-                                color: skill.badgeText,
-                                borderColor: "transparent",
-                              }
-                        }
-                      >
-                        {skill.name}
-                      </motion.button>
-                    );
-                  })}
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                  <Code2 className="h-5 w-5 text-green-500" />
                 </div>
 
-                <AnimatePresence>
-                  {activeSkill && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="mt-3 text-xs text-muted-foreground border-t border-border pt-3"
-                    >
-                      Click any skill to highlight it. Head to the{" "}
-                      <span className="font-medium text-foreground">Projects</span> section to see{" "}
-                      <span className="font-medium text-foreground">{activeSkill}</span> in action.
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div>
+                  <h3 className="font-semibold">
+                    Core Skills
+                  </h3>
+
+                  <p className="text-sm text-muted-foreground">
+                    Technologies I work with
+                  </p>
+                </div>
               </div>
-            </motion.div>
+
+              <div className="flex flex-wrap gap-3">
+                {SKILLS.map((skill) => (
+                  <motion.span
+                    key={skill.name}
+                    whileHover={{
+                      y: -2,
+                      scale: 1.05,
+                    }}
+                    className="
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      cursor-default
+                    "
+                    style={{
+                      background: skill.bg,
+                      color: skill.text,
+                    }}
+                  >
+                    {skill.name}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                  <GraduationCap className="h-5 w-5 text-green-500" />
+                </div>
+
+                <div>
+                  <h3 className="font-semibold">
+                    Education
+                  </h3>
+
+                  <p className="text-sm text-muted-foreground">
+                    Academic background
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
+                  <GraduationCap className="h-6 w-6 text-green-500" />
+                </div>
+
+                <div>
+                  <p className="font-medium">
+                    B.Tech — Computer Science & Engineering
+                  </p>
+
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Radharaman Institute of Technology & Science, Bhopal
+                  </p>
+
+                  <span className="inline-block mt-3 text-xs px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 font-medium">
+                    2021 – 2025
+                  </span>
+                </div>
+              </div>
+            </div>
 
             {/* Interests */}
-            <motion.div variants={itemVariants} className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="h-1 w-16 bg-[#D85A30] rounded-br-full" />
-              <div className="p-5">
-                <h3 className="font-semibold text-foreground text-base mb-3">Interests</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {INTERESTS.map((interest) => (
-                    <motion.div
-                      key={interest.label}
-                      whileHover={{ y: -2 }}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg border border-border bg-background"
-                    >
-                      <span className="text-lg leading-none">{interest.icon}</span>
-                      <span className="text-xs text-muted-foreground font-medium">
-                        {interest.label}
-                      </span>
-                    </motion.div>
-                  ))}
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                  <Lightbulb className="h-5 w-5 text-green-500" />
+                </div>
+
+                <div>
+                  <h3 className="font-semibold">
+                    Interests
+                  </h3>
+
+                  <p className="text-sm text-muted-foreground">
+                    Things I enjoy outside coding
+                  </p>
                 </div>
               </div>
-            </motion.div>
 
-            {/* Actions */}
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
-              <Button asChild size="sm" className="gap-2">
-                <a
-                  href="https://drive.google.com/file/d/1HVuTCTX8wUFEttt3ZmEBlVoA4w-h3SCD/view?usp=drive_link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaDownload className="h-3.5 w-3.5" />
-                  View CV
-                </a>
-              </Button>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {INTERESTS.map(
+                  ({ icon: Icon, label }) => (
+                    <motion.div
+                      key={label}
+                      whileHover={{ y: -2 }}
+                      className="
+                        flex items-center gap-3
+                        rounded-2xl
+                        border border-border
+                        bg-background/50
+                        p-4
+                        hover:border-green-500/30
+                        transition-all duration-300
+                      "
+                    >
+                      <div className="w-10 h-10 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0">
+                        <Icon className="h-5 w-5 text-green-500" />
+                      </div>
 
-              <Button asChild variant="outline" size="sm" className="gap-2">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=prajapatiashwani62@gmail.com">
-                  <FaEnvelope className="h-3.5 w-3.5" />
-                  Contact Me
-                </a>
-              </Button>
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {label}
+                      </span>
+                    </motion.div>
+                  )
+                )}
+              </div>
+            </div>
 
-              <Button asChild variant="outline" size="icon" className="h-8 w-8">
-                <a
-                  href="https://github.com/ashwaniprajapati049"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                >
-                  <FaGithub className="h-4 w-4" />
-                </a>
-              </Button>
-
-              <Button asChild variant="outline" size="icon" className="h-8 w-8">
-                <a
-                  href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin className="h-4 w-4" />
-                </a>
-              </Button>
-            </motion.div>
-          </div>
-        </motion.div>
+            {/* Email CTA */}
+            <Button
+              asChild
+              variant="outline"
+              className="
+                w-full h-12 rounded-2xl
+                border-border
+                hover:border-green-500/30
+                hover:bg-green-500/5
+                hover:text-green-600
+                transition-all duration-300
+              "
+            >
+              <a href="mailto:prajapatiashwani62@gmail.com">
+                <Mail className="h-4 w-4 mr-2" />
+                prajapatiashwani62@gmail.com
+              </a>
+            </Button>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

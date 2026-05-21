@@ -1,8 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import {
+  motion,
+  AnimatePresence,
+} from "framer-motion";
+
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -10,7 +16,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { FaChevronRight, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+
+import {
+  Sparkles,
+  Github,
+  ExternalLink,
+  ChevronRight,
+  Layers3,
+} from "lucide-react";
 
 type Project = {
   id: number;
@@ -31,163 +44,295 @@ const projects: Project[] = [
     id: 1,
     title: "Smart Dues Management System",
     description:
-      "A full-stack web application for managing student dues with role-based access for admins and students.",
-    image: "https://images.unsplash.com/photo-1554224154-22dec7ec8818?w=800&q=80",
-    accent: "#378ADD",
-    badgeBg: "#E6F1FB",
-    badgeText: "#0C447C",
+      "A modern full-stack application for managing student dues with secure admin and student workflows.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=crop",
+    accent: "#16A34A",
+    badgeBg: "#E1F5EE",
+    badgeText: "#085041",
     details:
-      "Designed and developed a complete dues management system using Java Spring Boot. The system supports department-wise dues tracking, receipt upload and verification, and semester-wise filtering. Implemented secure authentication, REST APIs, validations, and exception handling with MySQL as the database.",
-    technologies: ["Java", "Spring Boot", "REST APIs", "MySQL", "JDBC", "HTML", "CSS"],
-    github: "https://github.com/ashwaniprajapati049",
+      "Designed and developed a complete dues management platform using Spring Boot and MySQL. Implemented secure authentication, receipt verification, semester-wise tracking, REST APIs, validations, and scalable backend architecture.",
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "REST APIs",
+      "MySQL",
+      "JDBC",
+      "HTML",
+      "CSS",
+    ],
+    github:
+      "https://github.com/ashwaniprajapati049",
     live: "",
   },
+
   {
     id: 2,
     title: "Snake Game",
-    description: "A classic interactive Snake Game built using Java and Swing.",
-    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80",
-    accent: "#D85A30",
-    badgeBg: "#FAECE7",
-    badgeText: "#712B13",
+    description:
+      "Interactive desktop snake game built with Java Swing and real-time game logic.",
+    image:
+      "https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=1400&auto=format&fit=crop",
+    accent: "#D97706",
+    badgeBg: "#FAEEDA",
+    badgeText: "#633806",
     details:
-      "Built an interactive Snake Game using Java Swing with real-time movement, collision detection, scoring system, and game-over logic. Used JFrame, JPanel, and a Timer loop to ensure smooth rendering and gameplay.",
-    technologies: ["Java", "Swing", "JFrame", "JPanel", "Game Logic"],
-    github: "https://github.com/ashwaniprajapati049",
+      "Built a responsive Snake Game using Java Swing with collision detection, smooth rendering, scoring system, and timer-based game mechanics.",
+    technologies: [
+      "Java",
+      "Swing",
+      "JFrame",
+      "JPanel",
+      "Game Logic",
+    ],
+    github:
+      "https://github.com/ashwaniprajapati049",
     live: "",
   },
+
   {
     id: 3,
     title: "Real-Time Weather Monitoring",
     description:
-      "A Java-based application for collecting and visualizing real-time weather data.",
-    image: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b?w=800&q=80",
-    accent: "#1D9E75",
-    badgeBg: "#E1F5EE",
-    badgeText: "#085041",
+      "Java application for collecting and visualizing live weather information in real-time.",
+    image:
+      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=1400&auto=format&fit=crop",
+    accent: "#0891B2",
+    badgeBg: "#E6F7FB",
+    badgeText: "#0E4F63",
     details:
-      "Developed a real-time weather monitoring system that displays live data such as temperature, humidity, and rainfall. Integrated live data sources and ensured accurate data processing with a clean, user-friendly interface for instant visualization.",
-    technologies: ["Java", "OOP", "APIs", "Data Processing"],
-    github: "https://github.com/ashwaniprajapati049",
+      "Developed a real-time monitoring system displaying temperature, humidity, rainfall, and weather conditions with clean UI visualization and live data processing.",
+    technologies: [
+      "Java",
+      "APIs",
+      "Data Processing",
+      "OOP",
+    ],
+    github:
+      "https://github.com/ashwaniprajapati049",
     live: "",
   },
 ];
 
 export function ProjectSection() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<Project | null>(null);
 
   return (
     <section
       id="projects"
-      className="py-24 bg-background overflow-hidden"
+      className="
+        relative overflow-hidden
+        py-20 md:py-28
+        bg-gradient-to-b
+        from-background
+        via-background
+        to-green-500/5
+      "
     >
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3"
-          >
-            What I have built
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.05 }}
-            className="text-4xl font-bold text-foreground mb-4"
-          >
-            Featured Projects
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.1 }}
-            className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed"
-          >
-            A collection of projects that showcase my expertise in backend
-            systems, frontend interfaces, and creative problem-solving.
-          </motion.p>
-        </div>
+      {/* Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
 
-        {/* Project Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
+
+        {/* Header */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 14,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <div>
+            
+          </div>
+
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Featured Projects
+          </h2>
+
+          <p className="mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
+            A collection of projects showcasing
+            backend systems, frontend engineering,
+            and modern application architecture.
+          </p>
+        </motion.div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 + index * 0.08 }}
-              whileHover={{ y: -4 }}
-              className="group rounded-xl border border-border bg-card overflow-hidden cursor-pointer"
-              onClick={() => setSelectedProject(project)}
+              initial={{
+                opacity: 0,
+                y: 24,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.08,
+              }}
+              whileHover={{
+                y: -6,
+              }}
+              className="
+                group relative overflow-hidden
+                rounded-3xl border border-white/10
+                bg-gradient-to-br
+                from-white/70
+                to-white/40
+                dark:from-zinc-900/80
+                dark:to-zinc-950/60
+                backdrop-blur-xl
+                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+                dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
+                hover:border-green-500/20
+                transition-all duration-300
+              "
             >
-              {/* Accent stripe */}
-              <div
-                className="h-1 w-full"
-                style={{ background: project.accent }}
-              />
+              {/* Hover Glow */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-r from-green-500/5 via-transparent to-emerald-500/5" />
 
               {/* Image */}
-              <div className="relative overflow-hidden h-44">
+              <div className="relative h-52 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="
+                    w-full h-full object-cover
+                    transition-transform duration-700
+                    group-hover:scale-105
+                  "
                 />
-                {/* subtle overlay */}
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300" />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+                {/* Top Badge */}
+                <div className="absolute top-4 left-4">
+                  <span
+                    className="px-3 py-1 rounded-full text-[11px] font-semibold backdrop-blur-md border"
+                    style={{
+                      background:
+                        project.badgeBg,
+                      color:
+                        project.badgeText,
+                      borderColor: `${project.badgeText}20`,
+                    }}
+                  >
+                    Featured Project
+                  </span>
+                </div>
               </div>
 
-              {/* Body */}
-              <div className="p-5">
-                <h3 className="font-semibold text-foreground text-base mb-2 leading-snug">
+              {/* Content */}
+              <div className="relative p-6">
+
+                <h3 className="text-xl font-semibold tracking-tight mb-3">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground text-xs leading-relaxed mb-4">
+
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {project.description}
                 </p>
 
-                {/* Tech pills */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.technologies.slice(0, 3).map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[11px] px-2 py-0.5 rounded-full font-medium"
-                      style={{
-                        background: project.badgeBg,
-                        color: project.badgeText,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span
-                      className="text-[11px] px-2 py-0.5 rounded-full font-medium"
-                      style={{
-                        background: project.badgeBg,
-                        color: project.badgeText,
-                      }}
-                    >
-                      +{project.technologies.length - 3} more
-                    </span>
-                  )}
+                {/* Tech */}
+                <div className="mt-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Layers3 className="h-4 w-4 text-green-500" />
+
+                    <p className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground">
+                      Technologies
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies
+                      .slice(0, 4)
+                      .map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 rounded-full text-[11px] font-medium border border-border bg-background/50"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+
+                    {project.technologies
+                      .length > 4 && (
+                      <span className="px-3 py-1 rounded-full text-[11px] font-medium border border-border bg-background/50">
+                        +
+                        {project
+                          .technologies
+                          .length - 4}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="group/btn gap-1.5 text-xs"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedProject(project);
-                  }}
-                >
-                  View details
-                  <FaChevronRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5" />
-                </Button>
+                {/* Actions */}
+                <div className="mt-6 flex items-center justify-between">
+
+                  <Button
+                    variant="outline"
+                    className="
+                      rounded-full gap-2
+                      hover:border-green-500/30
+                      hover:bg-green-500/5
+                      hover:text-green-600
+                    "
+                    onClick={() =>
+                      setSelectedProject(
+                        project
+                      )
+                    }
+                  >
+                    View Details
+
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+
+                  <div className="flex items-center gap-2">
+
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        className="rounded-2xl"
+                      >
+                        <Github className="h-4 w-4" />
+                      </Button>
+                    </a>
+
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          className="rounded-2xl"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -199,81 +344,108 @@ export function ProjectSection() {
         {selectedProject && (
           <Dialog
             open={!!selectedProject}
-            onOpenChange={() => setSelectedProject(null)}
+            onOpenChange={() =>
+              setSelectedProject(null)
+            }
           >
-            <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden rounded-xl">
-              {/* Accent stripe */}
-              <div
-                className="h-1 w-full"
-                style={{ background: selectedProject.accent }}
-              />
+            <DialogContent className="sm:max-w-[700px] rounded-3xl overflow-hidden border border-border p-0">
 
               {/* Image */}
-              <div className="h-52 overflow-hidden">
+              <div className="relative h-64 overflow-hidden">
                 <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
+                  src={
+                    selectedProject.image
+                  }
+                  alt={
+                    selectedProject.title
+                  }
                   className="w-full h-full object-cover"
                 />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                <div className="absolute bottom-6 left-6 right-6">
+                  <DialogTitle className="text-3xl font-bold text-white">
+                    {
+                      selectedProject.title
+                    }
+                  </DialogTitle>
+                </div>
               </div>
 
-              <div className="px-6 py-5">
-                <DialogHeader className="mb-4">
-                  <DialogTitle className="text-xl font-semibold text-foreground">
-                    {selectedProject.title}
-                  </DialogTitle>
-                  <DialogDescription className="text-sm text-muted-foreground leading-relaxed mt-1">
-                    {selectedProject.details}
+              {/* Content */}
+              <div className="p-7">
+
+                <DialogHeader>
+                  <DialogDescription className="text-sm md:text-[15px] leading-relaxed text-muted-foreground">
+                    {
+                      selectedProject.details
+                    }
                   </DialogDescription>
                 </DialogHeader>
 
-                {/* Technologies */}
-                <div className="mb-5">
-                  <p
-                    className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-                    style={{ color: selectedProject.accent }}
-                  >
+                {/* Tech */}
+                <div className="mt-7">
+                  <p className="text-[11px] uppercase tracking-[0.25em] font-semibold text-muted-foreground mb-4">
                     Technologies
                   </p>
+
                   <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-xs px-2.5 py-1 rounded-full font-medium"
-                        style={{
-                          background: selectedProject.badgeBg,
-                          color: selectedProject.badgeText,
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                    {selectedProject.technologies.map(
+                      (tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 rounded-full text-xs font-medium border border-border bg-background/50"
+                        >
+                          {tech}
+                        </span>
+                      )
+                    )}
                   </div>
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-3">
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <div className="flex flex-wrap gap-3 pt-7 mt-7 border-t border-border">
+
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-full gap-2"
                   >
-                    <Button variant="outline" size="sm" className="gap-2">
-                      <FaGithub className="w-3.5 h-3.5" />
-                      GitHub
-                    </Button>
-                  </a>
-                  {selectedProject.live && (
                     <a
-                      href={selectedProject.live}
+                      href={
+                        selectedProject.github
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Button size="sm" className="gap-2">
-                        <FaExternalLinkAlt className="w-3 h-3" />
-                        Live Demo
-                      </Button>
+                      <Github className="h-4 w-4" />
+                      GitHub
                     </a>
+                  </Button>
+
+                  {selectedProject.live && (
+                    <Button
+                      asChild
+                      className="
+                        rounded-full
+                        bg-green-600
+                        hover:bg-green-700
+                        text-white
+                        gap-2
+                      "
+                    >
+                      <a
+                        href={
+                          selectedProject.live
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        Live Demo
+                      </a>
+                    </Button>
                   )}
                 </div>
               </div>

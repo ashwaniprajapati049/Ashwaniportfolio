@@ -1,298 +1,366 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, BarChart2, X } from "lucide-react"
+import { motion } from "framer-motion";
+
+import {
+  Sparkles,
+  Code2,
+  Layers3,
+} from "lucide-react";
 
 interface Skill {
-  name: string
-  level: number
-  description: string
-  projects: string[]
-  icon: string
+  name: string;
+  category: string;
+  description: string;
+  projects: string[];
+  icon: string;
+  bg: string;
+  text: string;
 }
-
-const ACCENT_COLORS = [
-  { bar: "#7F77DD", dot: "#534AB7", badge: "#EEEDFE", badgeText: "#3C3489" },
-  { bar: "#1D9E75", dot: "#0F6E56", badge: "#E1F5EE", badgeText: "#085041" },
-  { bar: "#D85A30", dot: "#993C1D", badge: "#FAECE7", badgeText: "#712B13" },
-  { bar: "#378ADD", dot: "#185FA5", badge: "#E6F1FB", badgeText: "#0C447C" },
-  { bar: "#D4537E", dot: "#993556", badge: "#FBEAF0", badgeText: "#72243E" },
-  { bar: "#BA7517", dot: "#854F0B", badge: "#FAEEDA", badgeText: "#633806" },
-  { bar: "#E24B4A", dot: "#A32D2D", badge: "#FCEBEB", badgeText: "#791F1F" },
-  { bar: "#639922", dot: "#3B6D11", badge: "#EAF3DE", badgeText: "#27500A" },
-]
 
 const skills: Skill[] = [
   {
     name: "Java",
-    level: 85,
-    description: "Core backend development and object-oriented programming",
+    category: "Backend",
+    description:
+      "Core backend development and scalable architecture design using modern Java principles.",
     projects: [
-      "Smart Dues Management System",
-      "Real-Time Weather Monitoring System",
+      "Smart Dues System",
+      "Weather Monitoring",
       "Snake Game",
     ],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    bg: "#FAECE7",
+    text: "#712B13",
   },
+
   {
     name: "Spring Boot",
-    level: 80,
-    description: "Building scalable RESTful backend services",
-    projects: ["Smart Dues Management System APIs", "Role-Based Authentication"],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+    category: "Backend",
+    description:
+      "Building enterprise-grade REST APIs and scalable backend services.",
+    projects: [
+      "Authentication APIs",
+      "REST Services",
+      "Backend Systems",
+    ],
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+    bg: "#E1F5EE",
+    text: "#085041",
   },
-  {
-    name: "C# & .NET",
-    level: 70,
-    description: "Backend API logic and enterprise application support",
-    projects: ["Enterprise Control Room Backend Support"],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
-  },
+
   {
     name: "Angular",
-    level: 85,
-    description: "Building responsive enterprise dashboards using Angular",
+    category: "Frontend",
+    description:
+      "Creating responsive dashboards and reusable enterprise UI systems.",
     projects: [
-      "Enterprise Control Room Dashboard",
-      "Smart Dues Management System UI",
+      "Control Room Dashboard",
+      "Admin Portal",
+      "Smart Dues UI",
     ],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+    bg: "#FCEBEB",
+    text: "#791F1F",
   },
+
   {
     name: "TypeScript",
-    level: 85,
-    description: "Type-safe frontend development",
-    projects: ["Angular Dashboards", "Form Validation & API Mapping"],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    category: "Frontend",
+    description:
+      "Type-safe frontend development with scalable maintainable architecture.",
+    projects: [
+      "Angular Apps",
+      "API Integration",
+      "Enterprise UI",
+    ],
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    bg: "#E6F1FB",
+    text: "#0C447C",
   },
+
+  {
+    name: "C# & .NET",
+    category: "Backend",
+    description:
+      "Enterprise backend development and API logic using the .NET ecosystem.",
+    projects: [
+      "Control Room APIs",
+      "Enterprise Backend",
+    ],
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
+    bg: "#EEEDFE",
+    text: "#3C3489",
+  },
+
   {
     name: "JavaScript",
-    level: 80,
-    description: "Dynamic client-side scripting",
-    projects: ["Frontend Interactions", "Dashboard Enhancements"],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    category: "Frontend",
+    description:
+      "Interactive frontend development and modern client-side scripting.",
+    projects: [
+      "Animations",
+      "Frontend Logic",
+      "UI Enhancements",
+    ],
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    bg: "#FAEEDA",
+    text: "#633806",
   },
+
+  {
+    name: "MySQL",
+    category: "Database",
+    description:
+      "Relational database design, optimization, and structured data management.",
+    projects: [
+      "Student Records",
+      "Receipt Management",
+      "Dues Database",
+    ],
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    bg: "#E1F5EE",
+    text: "#085041",
+  },
+
   {
     name: "HTML & CSS",
-    level: 85,
-    description: "Responsive and modern UI styling",
-    projects: ["Responsive UI Components", "Enterprise Dashboard Styling"],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    category: "Frontend",
+    description:
+      "Modern responsive layouts and scalable design systems.",
+    projects: [
+      "Responsive Components",
+      "Portfolio UI",
+      "Modern Layouts",
+    ],
+    icon:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    bg: "#FBEAF0",
+    text: "#72243E",
   },
-  {
-    name: "MySQL & JDBC",
-    level: 75,
-    description: "Relational database design and persistence",
-    projects: ["Dues Tracking Database", "Receipt Management System"],
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-  },
-]
+];
 
 export function SkillSection() {
-  const [showLevel, setShowLevel] = useState(false)
-  const [expandedSkill, setExpandedSkill] = useState<string | null>(null)
-  const [visibleSkills, setVisibleSkills] = useState(6)
-
-  const toggleExpand = (name: string) =>
-    setExpandedSkill((prev) => (prev === name ? null : name))
-
-  const showMoreSkills = () =>
-    setVisibleSkills((prev) => Math.min(prev + 3, skills.length))
-
   return (
     <section
       id="skills"
-      className="py-24 bg-background"
+      className="
+        relative overflow-hidden
+        py-20 md:py-28
+        bg-gradient-to-b
+        from-background
+        via-background
+        to-green-500/5
+      "
     >
-      <div className="container mx-auto px-4 max-w-6xl">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+
+      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
+
         {/* Header */}
-    <div className="text-center mb-14">
-  <motion.p
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.4 }}
-    className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3"
-  >
-    What I use
-  </motion.p>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 14,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          className="text-center mb-10"
+        >
+          <div>
+ 
+          </div>
 
-  <motion.h2
-    initial={{ opacity: 0, y: 14 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.4, delay: 0.05 }}
-    className="text-4xl font-bold text-foreground mb-4"
-  >
-    My Skills
-  </motion.h2>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Skills & Technologies
+          </h2>
 
-  <motion.p
-    initial={{ opacity: 0, y: 14 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.4, delay: 0.1 }}
-    className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed"
-  >
-    Technologies I have worked with professionally and academically,
-    focusing on building scalable and modern web applications.
-  </motion.p>
+          <p className="mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
+            Technologies and tools I use to build
+            scalable, modern, and high-performance
+            applications with elegant user experiences.
+          </p>
+        </motion.div>
 
-  {/* OPTIONAL BUTTON BELOW (centered) */}
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.4, delay: 0.15 }}
-    className="mt-6 flex justify-center"
-  >
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => setShowLevel((v) => !v)}
-      className="flex items-center gap-2"
-    >
-      <BarChart2 className="w-4 h-4" />
-      {showLevel ? "Hide levels" : "Show levels"}
-    </Button>
-  </motion.div>
-</div>
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence>
-            {skills.slice(0, visibleSkills).map((skill, index) => {
-              const accent = ACCENT_COLORS[index % ACCENT_COLORS.length]
-              const isOpen = expandedSkill === skill.name
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.name}
+              initial={{
+                opacity: 0,
+                y: 25,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.05,
+              }}
+              whileHover={{
+                y: -6,
+              }}
+              className="
+                group relative overflow-hidden
+                rounded-3xl border border-white/10
+                bg-gradient-to-br
+                from-white/70
+                to-white/40
+                dark:from-zinc-900/80
+                dark:to-zinc-950/60
+                backdrop-blur-xl
+                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+                dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
+                hover:border-green-500/20
+                transition-all duration-300
+              "
+            >
+              {/* Hover Glow */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-r from-green-500/5 via-transparent to-emerald-500/5" />
 
-              return (
-                <motion.div
-                  key={skill.name}
-                  layout
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.25, delay: index * 0.04 }}
-                  whileHover={{ y: -3 }}
-                  className="rounded-xl border border-border bg-card overflow-hidden cursor-pointer group"
-                  onClick={() => toggleExpand(skill.name)}
-                >
-                  {/* Accent stripe */}
+              <div className="relative p-6">
+
+                {/* Top */}
+                <div className="flex items-start gap-4">
+
+                  {/* Icon */}
                   <div
-                    className="h-1 w-full"
-                    style={{ background: accent.bar }}
-                  />
+                    className="
+                      w-14 h-14 rounded-2xl
+                      border border-border
+                      bg-white dark:bg-zinc-900
+                      flex items-center justify-center
+                      p-2.5 shrink-0
+                      shadow-sm
+                    "
+                  >
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
 
-                  {/* Card body */}
-                  <div className="p-5">
-                    <div className="flex items-start justify-between mb-3">
-                      <img
-                        src={skill.icon}
-                        alt={skill.name}
-                        className="w-9 h-9"
-                      />
-                      {/* open/close indicator */}
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-                        {isOpen ? (
-                          <X className="w-4 h-4" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4" />
-                        )}
-                      </span>
-                    </div>
-
-                    <h3 className="font-semibold text-foreground text-base mb-1">
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="text-lg md:text-xl font-semibold tracking-tight mb-2">
                       {skill.name}
                     </h3>
-                    <p className="text-muted-foreground text-xs leading-relaxed">
+
+                    <p className="text-sm leading-relaxed text-muted-foreground">
                       {skill.description}
                     </p>
 
-                    {/* Progress bar */}
-                    <AnimatePresence>
-                      {showLevel && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="mt-4"
-                        >
-                          <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
-                            <span>Proficiency</span>
-                            <span style={{ color: accent.bar }}>
-                              {skill.level}%
-                            </span>
-                          </div>
-                          <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${skill.level}%` }}
-                              transition={{ duration: 0.6, ease: "easeOut" }}
-                              className="h-full rounded-full"
-                              style={{ background: accent.bar }}
-                            />
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    {/* Category */}
+                    <div className="flex items-center gap-2 mt-4">
+                      <span
+                        className="text-[11px] font-semibold px-3 py-1 rounded-full border"
+                        style={{
+                          background: skill.bg,
+                          color: skill.text,
+                          borderColor: `${skill.text}20`,
+                        }}
+                      >
+                        {skill.category}
+                      </span>
+
+                      <span className="text-xs text-muted-foreground">
+                        Used in real-world projects
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="my-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+                {/* Projects */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Layers3 className="h-4 w-4 text-green-500" />
+
+                    <p className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground">
+                      Projects & Usage
+                    </p>
                   </div>
 
-                  {/* Expanded projects */}
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.22 }}
-                        className="border-t border-border px-5 py-4"
+                  <div className="flex flex-wrap gap-2">
+                    {skill.projects.map((project) => (
+                      <span
+                        key={project}
+                        className="
+                          px-3 py-1
+                          rounded-full
+                          text-[11px]
+                          font-medium
+                          border border-border
+                          bg-background/50
+                          backdrop-blur-sm
+                          hover:border-green-500/20
+                          transition
+                        "
                       >
-                        <p
-                          className="text-[10px] font-semibold uppercase tracking-widest mb-3"
-                          style={{ color: accent.bar }}
-                        >
-                          Projects
-                        </p>
-                        <ul className="space-y-2">
-                          {skill.projects.map((project) => (
-                            <li
-                              key={project}
-                              className="flex items-start gap-2 text-xs text-muted-foreground"
-                            >
-                              <span
-                                className="w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0"
-                                style={{ background: accent.dot }}
-                              />
-                              {project}
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
+                        {project}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Show more */}
-        {visibleSkills < skills.length && (
-          <div className="text-center mt-10">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={showMoreSkills}
-              className="gap-2"
-            >
-              Show more <ChevronDown className="w-4 h-4" />
-            </Button>
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{
+            delay: 0.2,
+          }}
+          className="
+            mt-14 text-center
+            rounded-3xl border border-border
+            bg-background/50
+            backdrop-blur-sm
+            p-8
+          "
+        >
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 mb-5">
+            <Code2 className="h-7 w-7 text-green-500" />
           </div>
-        )}
+
+          <h3 className="text-2xl font-semibold tracking-tight">
+            Always Learning & Growing
+          </h3>
+
+          <p className="mt-3 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
+            Continuously improving my skills by building
+            real-world applications, exploring modern
+            technologies, and creating scalable digital experiences.
+          </p>
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }
