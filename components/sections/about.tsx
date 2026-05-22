@@ -70,7 +70,6 @@ export function AboutSection() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] md:w-[700px] h-[500px] md:h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
 
       <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
-
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
@@ -86,14 +85,13 @@ export function AboutSection() {
           </h2>
 
           <p className="mt-4 md:mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground px-2">
-            A little about my background, technical expertise,
-            and the passion that drives my work as a software engineer.
+            A little about my background, technical expertise, and the passion
+            that drives my work as a software engineer.
           </p>
         </motion.div>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-6 md:gap-8">
-
           {/* LEFT SIDE */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -122,7 +120,6 @@ export function AboutSection() {
 
               {/* Avatar + Info */}
               <div className="p-5 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
-
                 {/* Avatar */}
                 <div className="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden ring-2 ring-green-500/20">
                   <Image
@@ -145,7 +142,6 @@ export function AboutSection() {
                   </p>
 
                   <div className="mt-2 flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-2">
-
                     <span className="flex items-center gap-1 text-xs text-muted-foreground">
                       <MapPin className="h-3 w-3 text-green-500 shrink-0" />
                       Bengaluru, India
@@ -164,7 +160,6 @@ export function AboutSection() {
 
               {/* Buttons */}
               <div className="p-5 flex flex-col gap-3">
-
                 <Button
                   asChild
                   className="
@@ -186,12 +181,7 @@ export function AboutSection() {
                 </Button>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-2xl"
-                  >
+                  <Button asChild variant="outline" className="rounded-2xl">
                     <a
                       href="https://github.com/ashwaniprajapati049"
                       target="_blank"
@@ -202,11 +192,7 @@ export function AboutSection() {
                     </a>
                   </Button>
 
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-2xl"
-                  >
+                  <Button asChild variant="outline" className="rounded-2xl">
                     <a
                       href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
                       target="_blank"
@@ -237,9 +223,7 @@ export function AboutSection() {
                     transition-all duration-300
                   "
                 >
-                  <p className="text-xl md:text-2xl font-bold">
-                    {stat.num}
-                  </p>
+                  <p className="text-xl md:text-2xl font-bold">{stat.num}</p>
 
                   <p className="text-[11px] md:text-xs text-muted-foreground mt-1 leading-relaxed">
                     {stat.label}
@@ -257,20 +241,15 @@ export function AboutSection() {
             transition={{ duration: 0.5 }}
             className="space-y-5"
           >
-
             {/* Bio */}
             <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-
               <div className="flex items-start sm:items-center gap-3 mb-5">
-
                 <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <Sparkles className="h-5 w-5 text-green-500" />
                 </div>
 
                 <div className="min-w-0">
-                  <h3 className="font-semibold">
-                    Professional Bio
-                  </h3>
+                  <h3 className="font-semibold">Professional Bio</h3>
 
                   <p className="text-sm text-muted-foreground">
                     About my journey & experience
@@ -287,11 +266,15 @@ export function AboutSection() {
                     exit={{ opacity: 0 }}
                     className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
                   >
-                    Full Stack Engineer at CA-One Tech,
-                    Bengaluru, building enterprise-grade Angular
-                    dashboards and Spring Boot APIs. I enjoy transforming
-                    complex requirements into clean, responsive interfaces
-                    using modern web technologies.
+                    Full Stack Engineer at{" "}
+                    <span className="font-medium text-green-600 dark:text-green-400">
+                      CA-One Tech
+                    </span>
+                    , Bengaluru, focused on building scalable web applications,
+                    modern Angular dashboards, and high-performance backend
+                    systems using Spring Boot. Passionate about creating
+                    seamless user experiences with clean design and efficient
+                    architecture.
                   </motion.p>
                 ) : (
                   <motion.p
@@ -301,10 +284,13 @@ export function AboutSection() {
                     exit={{ opacity: 0 }}
                     className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
                   >
-                    Full Stack Engineer at CA-One Tech,
-                    building enterprise-grade Angular dashboards
-                    and scalable Spring Boot APIs focused on
-                    clean architecture and modern UI systems.
+                    Full Stack Engineer at{" "}
+                    <span className="font-medium text-green-600 dark:text-green-400">
+                      CA-One Tech
+                    </span>
+                    , building scalable applications, responsive Angular
+                    interfaces, and modern backend systems with a strong focus
+                    on performance and user experience.
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -329,17 +315,13 @@ export function AboutSection() {
 
             {/* Skills */}
             <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-
               <div className="flex items-start sm:items-center gap-3 mb-5">
-
                 <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <Code2 className="h-5 w-5 text-green-500" />
                 </div>
 
                 <div>
-                  <h3 className="font-semibold">
-                    Core Skills
-                  </h3>
+                  <h3 className="font-semibold">Core Skills</h3>
 
                   <p className="text-sm text-muted-foreground">
                     Technologies I work with
@@ -376,17 +358,13 @@ export function AboutSection() {
 
             {/* Education */}
             <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-
               <div className="flex items-start sm:items-center gap-3 mb-5">
-
                 <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <GraduationCap className="h-5 w-5 text-green-500" />
                 </div>
 
                 <div>
-                  <h3 className="font-semibold">
-                    Education
-                  </h3>
+                  <h3 className="font-semibold">Education</h3>
 
                   <p className="text-sm text-muted-foreground">
                     Academic background
@@ -395,7 +373,6 @@ export function AboutSection() {
               </div>
 
               <div className="flex items-start gap-4">
-
                 <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <GraduationCap className="h-6 w-6 text-green-500" />
                 </div>
@@ -418,17 +395,13 @@ export function AboutSection() {
 
             {/* Interests */}
             <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-
               <div className="flex items-start sm:items-center gap-3 mb-5">
-
                 <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <Lightbulb className="h-5 w-5 text-green-500" />
                 </div>
 
                 <div>
-                  <h3 className="font-semibold">
-                    Interests
-                  </h3>
+                  <h3 className="font-semibold">Interests</h3>
 
                   <p className="text-sm text-muted-foreground">
                     Things I enjoy outside coding
@@ -437,13 +410,11 @@ export function AboutSection() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-                {INTERESTS.map(
-                  ({ icon: Icon, label }) => (
-                    <motion.div
-                      key={label}
-                      whileHover={{ y: -2 }}
-                      className="
+                {INTERESTS.map(({ icon: Icon, label }) => (
+                  <motion.div
+                    key={label}
+                    whileHover={{ y: -2 }}
+                    className="
                         flex items-center gap-3
                         rounded-2xl border border-border
                         bg-background/50
@@ -451,17 +422,16 @@ export function AboutSection() {
                         hover:border-green-500/30
                         transition-all duration-300
                       "
-                    >
-                      <div className="w-10 h-10 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0">
-                        <Icon className="h-5 w-5 text-green-500" />
-                      </div>
+                  >
+                    <div className="w-10 h-10 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0">
+                      <Icon className="h-5 w-5 text-green-500" />
+                    </div>
 
-                      <span className="text-sm font-medium text-muted-foreground break-words">
-                        {label}
-                      </span>
-                    </motion.div>
-                  )
-                )}
+                    <span className="text-sm font-medium text-muted-foreground break-words">
+                      {label}
+                    </span>
+                  </motion.div>
+                ))}
               </div>
             </div>
 

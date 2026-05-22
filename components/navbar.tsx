@@ -23,7 +23,7 @@ const navItems = [
   { name: "Experience", path: "/#experiences" },
   { name: "Projects", path: "/#projects" },
   { name: "Skills", path: "/#skills" },
-    { name: "Contact", path: "/#contact" },
+  { name: "Contact", path: "/#contact" },
 ];
 
 export function Navbar() {
@@ -167,18 +167,23 @@ export function Navbar() {
               href="/#"
               className="group flex items-center gap-3"
             >
-              <div
-                className="
-                  flex items-center justify-center
-                  w-11 h-11 rounded-2xl
-                  bg-green-500
-                  text-white
-                  font-bold text-sm
-                  shadow-lg shadow-green-500/20
-                "
-              >
-                AP
-              </div>
+<div
+  className="
+    relative
+    w-11 h-11
+    rounded-2xl
+    overflow-hidden
+    ring-2 ring-green-500/20
+    shadow-lg shadow-green-500/20
+    shrink-0
+  "
+>
+  <img
+    src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
+    alt="Ashwani Prajapati"
+    className="w-full h-full object-cover object-top"
+  />
+</div>
 
               <div className="hidden sm:block">
                 <p className="text-sm font-semibold tracking-tight">

@@ -55,18 +55,26 @@ const experiences: Experience[] = [
     role: "Software Engineer",
     company: "CA-One Tech",
     location: "Bengaluru, India",
-    duration: "Feb 2025 – Present",
+    duration: "Feb 2026 – Present",
     type: "Full-time",
     current: true,
-    description:
-      "Working as a Frontend Engineer, developing scalable and user-friendly web applications. Responsible for building dynamic UI components, optimizing performance, and integrating APIs while collaborating with backend teams to deliver seamless enterprise experiences.",
-    technologies: [
-      "Angular",
-      "TypeScript",
-      "JavaScript",
-      "Tailwind CSS",
-      "REST APIs",
-    ],
+  description:
+  "Working as a Full Stack Engineer at CA-One Tech, contributing to the development of the AI-powered recruitment platform 'Ezyhire'. Building scalable Angular applications, modern dashboards, and intelligent user workflows while also developing backend services using Java and Spring Boot. Responsible for creating responsive UI components, integrating REST APIs, optimizing application performance, and collaborating across teams to deliver seamless enterprise-grade solutions powered by modern web technologies and AI-driven features.",
+
+technologies: [
+  "Angular",
+  "TypeScript",
+  "JavaScript",
+  "Java",
+  "Spring Boot",
+  "Tailwind CSS",
+  "REST APIs",
+  "AI Integration",
+  "Responsive UI",
+  "Frontend Architecture",
+  "Backend Development",
+  "Dashboard Development",
+],
     companyLogo:
       "https://res.cloudinary.com/dwciao4x3/image/upload/v1775746071/caone_logo_lvl3gk.png",
     bg: "#E1F5EE",
@@ -76,18 +84,26 @@ const experiences: Experience[] = [
   {
     role: "Software Trainee",
     company: "Intellibuddies – VIT Infotech",
-    location: "Bhopal, India",
-    duration: "Mar 2024 – Jan 2025",
+    location: "Bengaluru, India",
+    duration: "Mar 2025 – Jan 2026",
     type: "Trainee",
-    description:
-      "Worked on enterprise dashboards using Angular and TypeScript. Integrated frontend with APIs and contributed to backend logic using C# and .NET technologies in Agile development environments.",
-    technologies: [
-      "Angular",
-      "TypeScript",
-      "C#",
-      ".NET",
-      "REST APIs",
-    ],
+   description:
+  "Worked as a Full Stack Engineer Trainee on enterprise-level RPA & BPA (Robotic Process Automation and Business Process Automation) solutions at Intellibuddies. Contributed to developing responsive Angular dashboards, workflow management interfaces, and backend services using C# and .NET technologies. Integrated frontend applications with REST APIs, optimized application performance, and collaborated in Agile development environments to deliver scalable automation-driven enterprise solutions.",
+
+technologies: [
+  "Angular",
+  "TypeScript",
+  "JavaScript",
+  "C#",
+  ".NET",
+  "REST APIs",
+  "RPA",
+  "BPA",
+  "Dashboard Development",
+  "Frontend Development",
+  "Backend Development",
+  "Agile",
+],
     companyLogo:
       "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383257/vit_infotech_logo_ukawu0.jpg",
     bg: "#E6F1FB",
@@ -99,16 +115,21 @@ const experiences: Experience[] = [
     company:
       "GeeksforGeeks – MANIT Bhopal",
     location: "Bhopal, India",
-    duration: "2024",
+    duration: "Aug 2024 - Jan 2025",
     type: "Internship",
-    description:
-      "Completed hands-on Web Development training and built responsive frontend interfaces with practical projects focused on modern UI design and frontend architecture.",
-    technologies: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Web Development",
-    ],
+   description:
+  "Completed intensive Web Development training at GeeksforGeeks – MANIT Bhopal, focusing on modern frontend development, responsive UI design, and core web technologies. Built multiple practical projects including responsive portfolio websites, interactive web applications, and frontend UI components while strengthening problem-solving skills and understanding of real-world web development practices.",
+
+technologies: [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "Responsive Design",
+  "Frontend Development",
+  "UI Design",
+  "Web Development",
+  "Git",
+],
     companyLogo:
       "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383608/GG_Logo_tcir8i.png",
     bg: "#FAECE7",
@@ -121,15 +142,21 @@ const experiences: Experience[] = [
       "Radharaman Institute of Technology & Science",
     location: "Bhopal, India",
     duration: "2023 – 2024",
-    type: "Volunteer",
-    description:
-      "Organized technical and academic events while coordinating between faculty and students to ensure smooth execution of college initiatives and collaborative activities.",
-    technologies: [
-      "Leadership",
-      "Communication",
-      "Coordination",
-      "Teamwork",
-    ],
+   type: "Leadership & Coordination",
+
+description:
+  "Served as Student Coordinator, managing and organizing technical events, academic activities, workshops, and student engagement programs within the institution. Coordinated between faculty members and students to ensure smooth execution of college initiatives, improved team collaboration, and supported event planning, communication, and operational management in fast-paced environments.",
+
+technologies: [
+  "Leadership",
+  "Team Collaboration",
+  "Communication",
+  "Event Management",
+  "Coordination",
+  "Problem Solving",
+  "Public Speaking",
+  "Teamwork",
+],
     companyLogo:
       "https://res.cloudinary.com/dwciao4x3/image/upload/v1775745822/log_rgi_omhvjg.jpg",
     bg: "#EEEDFE",
