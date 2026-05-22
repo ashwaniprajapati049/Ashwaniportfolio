@@ -21,128 +21,177 @@ interface Skill {
 const skills: Skill[] = [
   {
     name: "Java",
+
     category: "Backend",
+
     description:
-      "Core backend development and scalable architecture design using modern Java principles.",
+      "Experienced in building scalable backend systems, object-oriented applications, and high-performance business logic using Java. Strong understanding of clean architecture, problem-solving, and efficient application development principles.",
+
     projects: [
-      "Smart Dues System",
-      "Weather Monitoring",
+      "Smart Dues Management System",
+      "Real-Time Weather Monitoring",
       "Snake Game",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+
     bg: "#FAECE7",
+
     text: "#712B13",
   },
 
   {
     name: "Spring Boot",
+
     category: "Backend",
+
     description:
-      "Building enterprise-grade REST APIs and scalable backend services.",
+      "Skilled in developing secure and scalable REST APIs, backend services, and enterprise applications using Spring Boot with modern backend architecture and API-driven development practices.",
+
     projects: [
       "Authentication APIs",
-      "REST Services",
-      "Backend Systems",
+      "Ezyhire Backend Services",
+      "Smart Dues APIs",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+
     bg: "#E1F5EE",
+
     text: "#085041",
   },
 
   {
     name: "Angular",
+
     category: "Frontend",
+
     description:
-      "Creating responsive dashboards and reusable enterprise UI systems.",
+      "Building responsive Angular applications, enterprise dashboards, and reusable UI systems with a strong focus on performance, scalability, and seamless user experience.",
+
     projects: [
+      "Ezyhire AI Platform",
       "Control Room Dashboard",
-      "Admin Portal",
       "Smart Dues UI",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+
     bg: "#FCEBEB",
+
     text: "#791F1F",
   },
 
   {
     name: "TypeScript",
+
     category: "Frontend",
+
     description:
-      "Type-safe frontend development with scalable maintainable architecture.",
+      "Developing scalable frontend applications using TypeScript with clean code practices, reusable architecture, and maintainable component-driven development.",
+
     projects: [
-      "Angular Apps",
-      "API Integration",
-      "Enterprise UI",
+      "Angular Applications",
+      "Enterprise Dashboards",
+      "API Integrations",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+
     bg: "#E6F1FB",
+
     text: "#0C447C",
   },
 
   {
     name: "C# & .NET",
+
     category: "Backend",
+
     description:
-      "Enterprise backend development and API logic using the .NET ecosystem.",
+      "Worked on enterprise backend development using C# and .NET technologies, building APIs, automation workflows, and scalable business solutions within RPA and BPA environments.",
+
     projects: [
-      "Control Room APIs",
-      "Enterprise Backend",
+      "RPA Solutions",
+      "BPA Workflows",
+      "Enterprise Backend Systems",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
+
     bg: "#EEEDFE",
+
     text: "#3C3489",
   },
 
   {
     name: "JavaScript",
+
     category: "Frontend",
+
     description:
-      "Interactive frontend development and modern client-side scripting.",
+      "Creating dynamic and interactive user interfaces with modern JavaScript concepts, frontend logic implementation, animations, and client-side functionality optimization.",
+
     projects: [
-      "Animations",
+      "Interactive UI",
       "Frontend Logic",
-      "UI Enhancements",
+      "Modern Web Interfaces",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+
     bg: "#FAEEDA",
+
     text: "#633806",
   },
 
   {
     name: "MySQL",
+
     category: "Database",
+
     description:
-      "Relational database design, optimization, and structured data management.",
+      "Experienced in relational database design, query optimization, and structured data management for scalable backend systems and enterprise-level applications.",
+
     projects: [
-      "Student Records",
-      "Receipt Management",
+      "Student Records Management",
+      "Receipt Management System",
       "Dues Database",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+
     bg: "#E1F5EE",
+
     text: "#085041",
   },
 
   {
     name: "HTML & CSS",
+
     category: "Frontend",
+
     description:
-      "Modern responsive layouts and scalable design systems.",
+      "Building responsive layouts, modern UI components, and scalable design systems with a strong focus on clean aesthetics, accessibility, and responsive web design.",
+
     projects: [
+      "Portfolio Website",
       "Responsive Components",
-      "Portfolio UI",
-      "Modern Layouts",
+      "Modern UI Layouts",
     ],
+
     icon:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+
     bg: "#FBEAF0",
+
     text: "#72243E",
   },
 ];
@@ -346,19 +395,20 @@ export function SkillSection() {
             p-8
           "
         >
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 mb-5">
-            <Code2 className="h-7 w-7 text-green-500" />
-          </div>
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 mb-5 shadow-lg shadow-green-500/10">
+  <Code2 className="h-7 w-7 text-green-500" />
+</div>
 
-          <h3 className="text-2xl font-semibold tracking-tight">
-            Always Learning & Growing
-          </h3>
+<h3 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
+  Driven by Innovation & Continuous Growth
+</h3>
 
-          <p className="mt-3 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
-            Continuously improving my skills by building
-            real-world applications, exploring modern
-            technologies, and creating scalable digital experiences.
-          </p>
+<p className="mt-4 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
+  Passionate about building impactful digital experiences through
+  modern technologies, scalable architecture, and clean engineering practices.
+  Constantly exploring new tools, AI-driven solutions, and advanced development
+  approaches to create high-performance applications that solve real-world problems.
+</p>
         </motion.div>
       </div>
     </section>

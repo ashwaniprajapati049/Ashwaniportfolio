@@ -26,15 +26,50 @@ import Image from "next/image";
 
 const SKILLS = [
   { name: "Java", bg: "#FAECE7", text: "#712B13" },
+
   { name: "Spring Boot", bg: "#E1F5EE", text: "#085041" },
+
   { name: "Angular", bg: "#FCEBEB", text: "#791F1F" },
+
   { name: "TypeScript", bg: "#E6F1FB", text: "#0C447C" },
+
+  { name: "JavaScript", bg: "#FAEEDA", text: "#633806" },
+
   { name: "C#", bg: "#EEEDFE", text: "#3C3489" },
+
   { name: ".NET", bg: "#EEEDFE", text: "#3C3489" },
+
   { name: "MySQL", bg: "#E1F5EE", text: "#085041" },
-  { name: "Git", bg: "#FAEEDA", text: "#633806" },
+
   { name: "REST APIs", bg: "#E6F1FB", text: "#0C447C" },
+
   { name: "Tailwind CSS", bg: "#FBEAF0", text: "#72243E" },
+
+  { name: "HTML5", bg: "#FAECE7", text: "#712B13" },
+
+  { name: "CSS3", bg: "#E6F1FB", text: "#0C447C" },
+
+  { name: "Git", bg: "#FAEEDA", text: "#633806" },
+
+  { name: "GitHub", bg: "#ECECEC", text: "#222222" },
+
+  { name: "Responsive Design", bg: "#E1F5EE", text: "#085041" },
+
+  { name: "Frontend Development", bg: "#FBEAF0", text: "#72243E" },
+
+  { name: "Backend Development", bg: "#EEEDFE", text: "#3C3489" },
+
+  { name: "API Integration", bg: "#E6F1FB", text: "#0C447C" },
+
+  { name: "Dashboard Development", bg: "#FAECE7", text: "#712B13" },
+
+  { name: "AI Integration", bg: "#E1F5EE", text: "#085041" },
+
+  { name: "UI/UX", bg: "#FCEBEB", text: "#791F1F" },
+
+  { name: "Agile", bg: "#FAEEDA", text: "#633806" },
+
+  { name: "OOP", bg: "#EEEDFE", text: "#3C3489" },
 ];
 
 const INTERESTS = [

@@ -40,23 +40,28 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Smart Dues Management System",
 
-    description:
-      "A full-stack platform for managing student dues, receipts, and admin workflows.",
+title: "Smart Dues Management System",
 
-    details:
-      "Built a complete dues management platform using Spring Boot and MySQL with secure authentication, receipt verification, REST APIs, and scalable backend architecture.",
+description:
+  "A modern full-stack web application designed to streamline student dues management, receipt tracking, and admin operations through secure and efficient digital workflows.",
 
-    technologies: [
-      "Java",
-      "Spring Boot",
-      "REST APIs",
-      "MySQL",
-      "JDBC",
-      "HTML",
-      "CSS",
-    ],
+details:
+  "Developed a complete student dues management platform using Java, Spring Boot, and MySQL with secure authentication, receipt verification, semester-wise dues tracking, and scalable REST API architecture. Built responsive admin and student dashboards, optimized backend operations, and implemented clean UI workflows to improve efficiency, transparency, and overall user experience within the institution.",
+
+technologies: [
+  "Java",
+  "Spring Boot",
+  "REST APIs",
+  "MySQL",
+  "JDBC",
+  "HTML",
+  "CSS",
+  "Authentication",
+  "Dashboard Development",
+  "Backend Architecture",
+  "Responsive UI",
+],
 
     github:
       "https://github.com/ashwaniprajapati049",
@@ -71,21 +76,24 @@ const projects: Project[] = [
   {
     id: 2,
 
-    title: "Snake Game",
+title: "Snake Game",
 
-    description:
-      "Interactive desktop snake game with real-time mechanics and smooth gameplay.",
+description:
+  "A classic desktop-based Snake Game featuring smooth gameplay mechanics, responsive controls, and real-time score tracking built using Java.",
 
-    details:
-      "Built using Java Swing with collision detection, scoring system, keyboard controls, and timer-based rendering.",
+details:
+  "Developed an interactive Snake Game application using Java Swing and object-oriented programming principles. Implemented real-time movement logic, collision detection, keyboard controls, score management, and timer-based rendering to create a smooth and engaging gaming experience. Focused on performance optimization, game state management, and responsive gameplay mechanics.",
 
-    technologies: [
-      "Java",
-      "Swing",
-      "JFrame",
-      "Game Logic",
-    ],
-
+technologies: [
+  "Java",
+  "Swing",
+  "JFrame",
+  "Game Logic",
+  "OOP",
+  "Event Handling",
+  "Timer-Based Rendering",
+  "Keyboard Controls",
+],
     github:
       "https://github.com/ashwaniprajapati049",
 
@@ -97,22 +105,26 @@ const projects: Project[] = [
   },
 
   {
-    id: 3,
+   id: 3,
 
-    title: "Real-Time Weather Monitoring",
+title: "Real-Time Weather Monitoring",
 
-    description:
-      "Weather monitoring application for displaying live environmental data.",
+description:
+  "A real-time weather monitoring application designed to display live environmental conditions, temperature insights, and weather analytics through dynamic data visualization.",
 
-    details:
-      "Developed a monitoring system for displaying live weather conditions, temperature, humidity, and rainfall information.",
+details:
+  "Developed a weather monitoring system using Java and API integration to fetch and process real-time environmental data including temperature, humidity, rainfall, and weather conditions. Implemented data handling, live updates, and clean information visualization while applying object-oriented programming concepts and backend processing techniques for accurate and efficient monitoring.",
 
-    technologies: [
-      "Java",
-      "APIs",
-      "Data Processing",
-      "OOP",
-    ],
+technologies: [
+  "Java",
+  "REST APIs",
+  "Data Processing",
+  "OOP",
+  "Real-Time Monitoring",
+  "API Integration",
+  "Backend Logic",
+  "Weather Analytics",
+],
 
     github:
       "https://github.com/ashwaniprajapati049",
