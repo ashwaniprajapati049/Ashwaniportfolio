@@ -59,7 +59,7 @@ export function AboutSection() {
       id="about"
       className="
         relative overflow-hidden
-        py-20 md:py-28
+        py-16 md:py-24
         bg-gradient-to-b
         from-background
         via-background
@@ -67,7 +67,7 @@ export function AboutSection() {
       "
     >
       {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] md:w-[700px] h-[500px] md:h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
 
       <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
 
@@ -76,27 +76,23 @@ export function AboutSection() {
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <div>
-             
-          </div>
-
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-tight">
             Passionate About
             <span className="block text-green-600 dark:text-green-400">
               Building Modern Web Apps
             </span>
           </h2>
 
-          <p className="mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
+          <p className="mt-4 md:mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground px-2">
             A little about my background, technical expertise,
             and the passion that drives my work as a software engineer.
           </p>
         </motion.div>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-6 md:gap-8">
 
           {/* LEFT SIDE */}
           <motion.div
@@ -124,93 +120,102 @@ export function AboutSection() {
             >
               <div className="h-1.5 w-full bg-gradient-to-r from-green-600 via-green-400 to-emerald-300" />
 
-              {/* Image */}
-              <div className="relative w-full aspect-[4/5] overflow-hidden">
-                <Image
-                  src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
-                  alt="Ashwani Prajapati"
-                  fill
-                  priority
-                  className="object-cover object-top"
-                />
+              {/* Avatar + Info */}
+              <div className="p-5 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
 
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
-              </div>
+                {/* Avatar */}
+                <div className="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden ring-2 ring-green-500/20">
+                  <Image
+                    src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
+                    alt="Ashwani Prajapati"
+                    fill
+                    priority
+                    className="object-cover object-top"
+                  />
+                </div>
 
-              {/* Info */}
-              <div className="p-5">
-                <h3 className="text-xl font-semibold tracking-tight">
-                  Ashwani Prajapati
-                </h3>
+                {/* Info */}
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-lg font-semibold tracking-tight leading-tight break-words">
+                    Ashwani Prajapati
+                  </h3>
 
-                <p className="text-sm text-muted-foreground mt-1">
-                  Software Engineer · Full Stack
-                </p>
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    Software Engineer · Full Stack
+                  </p>
 
-                <div className="mt-5 space-y-3">
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4 text-green-500 shrink-0" />
-                    Bengaluru, India
-                  </div>
+                  <div className="mt-2 flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-2">
 
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <Briefcase className="h-4 w-4 text-green-500 shrink-0" />
-                    CA-One Tech
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3 text-green-500 shrink-0" />
+                      Bengaluru, India
+                    </span>
+
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Briefcase className="h-3 w-3 text-green-500 shrink-0" />
+                      CA-One Tech
+                    </span>
                   </div>
                 </div>
-                 {/* Buttons */}
-                <div className="mt-6 flex flex-col gap-3">
+              </div>
+
+              {/* Divider */}
+              <div className="mx-5 border-t border-border" />
+
+              {/* Buttons */}
+              <div className="p-5 flex flex-col gap-3">
+
+                <Button
+                  asChild
+                  className="
+                    w-full rounded-2xl
+                    bg-green-600
+                    hover:bg-green-700
+                    text-white
+                    shadow-lg shadow-green-500/20
+                  "
+                >
+                  <a
+                    href="https://drive.google.com/file/d/1HVuTCTX8wUFEttt3ZmEBlVoA4w-h3SCD/view?usp=drive_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Download className="h-4 w-4 mr-2 shrink-0" />
+                    Download CV
+                  </a>
+                </Button>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
                   <Button
                     asChild
-                    className="
-                      w-full rounded-2xl
-                      bg-green-600
-                      hover:bg-green-700
-                      text-white
-                      shadow-lg shadow-green-500/20
-                    "
+                    variant="outline"
+                    className="rounded-2xl"
                   >
                     <a
-                      href="https://drive.google.com/file/d/1HVuTCTX8wUFEttt3ZmEBlVoA4w-h3SCD/view?usp=drive_link"
+                      href="https://github.com/ashwaniprajapati049"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download CV
+                      <Github className="h-4 w-4 mr-2 shrink-0" />
+                      GitHub
                     </a>
                   </Button>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="rounded-2xl"
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-2xl"
+                  >
+                    <a
+                      href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href="https://github.com/ashwaniprajapati049"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="h-4 w-4 mr-2" />
-                        GitHub
-                      </a>
-                    </Button>
-
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="rounded-2xl"
-                    >
-                      <a
-                        href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Linkedin className="h-4 w-4 mr-2" />
-                        LinkedIn
-                      </a>
-                    </Button>
-                  </div>
+                      <Linkedin className="h-4 w-4 mr-2 shrink-0" />
+                      LinkedIn
+                    </a>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -226,16 +231,17 @@ export function AboutSection() {
                     border border-border
                     bg-background/50
                     backdrop-blur-sm
-                    p-4 text-center
+                    p-3 md:p-4
+                    text-center
                     hover:border-green-500/30
                     transition-all duration-300
                   "
                 >
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl md:text-2xl font-bold">
                     {stat.num}
                   </p>
 
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <p className="text-[11px] md:text-xs text-muted-foreground mt-1 leading-relaxed">
                     {stat.label}
                   </p>
                 </motion.div>
@@ -253,13 +259,15 @@ export function AboutSection() {
           >
 
             {/* Bio */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
+
+              <div className="flex items-start sm:items-center gap-3 mb-5">
+
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <Sparkles className="h-5 w-5 text-green-500" />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <h3 className="font-semibold">
                     Professional Bio
                   </h3>
@@ -277,17 +285,13 @@ export function AboutSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-sm md:text-base text-muted-foreground leading-relaxed"
+                    className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
                   >
                     Full Stack Engineer at CA-One Tech,
                     Bengaluru, building enterprise-grade Angular
-                    dashboards and Spring Boot APIs.
-                    I enjoy transforming complex requirements
-                    into clean, responsive interfaces using
-                    modern web technologies. What started as
-                    curiosity for problem-solving has grown into
-                    a strong commitment to crafting intuitive
-                    and reliable digital experiences that scale.
+                    dashboards and Spring Boot APIs. I enjoy transforming
+                    complex requirements into clean, responsive interfaces
+                    using modern web technologies.
                   </motion.p>
                 ) : (
                   <motion.p
@@ -295,7 +299,7 @@ export function AboutSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-sm md:text-base text-muted-foreground leading-relaxed"
+                    className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
                   >
                     Full Stack Engineer at CA-One Tech,
                     building enterprise-grade Angular dashboards
@@ -306,15 +310,8 @@ export function AboutSection() {
               </AnimatePresence>
 
               <button
-                onClick={() =>
-                  setShowBio((v) => !v)
-                }
-                className="
-                  mt-5 inline-flex items-center gap-1.5
-                  text-sm font-semibold
-                  text-green-600 dark:text-green-400
-                  hover:underline
-                "
+                onClick={() => setShowBio((v) => !v)}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-green-600 dark:text-green-400 hover:underline"
               >
                 {showBio ? (
                   <>
@@ -331,9 +328,11 @@ export function AboutSection() {
             </div>
 
             {/* Skills */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
+
+              <div className="flex items-start sm:items-center gap-3 mb-5">
+
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <Code2 className="h-5 w-5 text-green-500" />
                 </div>
 
@@ -348,18 +347,21 @@ export function AboutSection() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2">
                 {SKILLS.map((skill) => (
                   <motion.span
                     key={skill.name}
                     whileHover={{
                       y: -2,
-                      scale: 1.05,
+                      scale: 1.03,
                     }}
                     className="
-                      px-4 py-2 rounded-full
-                      text-sm font-medium
+                      px-3 py-2 md:px-4
+                      rounded-full
+                      text-xs md:text-sm
+                      font-medium
                       cursor-default
+                      break-words
                     "
                     style={{
                       background: skill.bg,
@@ -373,9 +375,11 @@ export function AboutSection() {
             </div>
 
             {/* Education */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
+
+              <div className="flex items-start sm:items-center gap-3 mb-5">
+
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <GraduationCap className="h-5 w-5 text-green-500" />
                 </div>
 
@@ -391,16 +395,17 @@ export function AboutSection() {
               </div>
 
               <div className="flex items-start gap-4">
+
                 <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <GraduationCap className="h-6 w-6 text-green-500" />
                 </div>
 
-                <div>
-                  <p className="font-medium">
+                <div className="min-w-0">
+                  <p className="font-medium break-words">
                     B.Tech — Computer Science & Engineering
                   </p>
 
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground mt-1 break-words">
                     Radharaman Institute of Technology & Science, Bhopal
                   </p>
 
@@ -412,9 +417,11 @@ export function AboutSection() {
             </div>
 
             {/* Interests */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
+
+              <div className="flex items-start sm:items-center gap-3 mb-5">
+
+                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
                   <Lightbulb className="h-5 w-5 text-green-500" />
                 </div>
 
@@ -429,7 +436,8 @@ export function AboutSection() {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
                 {INTERESTS.map(
                   ({ icon: Icon, label }) => (
                     <motion.div
@@ -437,8 +445,7 @@ export function AboutSection() {
                       whileHover={{ y: -2 }}
                       className="
                         flex items-center gap-3
-                        rounded-2xl
-                        border border-border
+                        rounded-2xl border border-border
                         bg-background/50
                         p-4
                         hover:border-green-500/30
@@ -449,7 +456,7 @@ export function AboutSection() {
                         <Icon className="h-5 w-5 text-green-500" />
                       </div>
 
-                      <span className="text-sm font-medium text-muted-foreground">
+                      <span className="text-sm font-medium text-muted-foreground break-words">
                         {label}
                       </span>
                     </motion.div>
@@ -463,16 +470,19 @@ export function AboutSection() {
               asChild
               variant="outline"
               className="
-                w-full h-12 rounded-2xl
-                border-border
+                w-full min-h-[48px]
+                rounded-2xl border-border
                 hover:border-green-500/30
                 hover:bg-green-500/5
                 hover:text-green-600
                 transition-all duration-300
               "
             >
-              <a href="mailto:prajapatiashwani62@gmail.com">
-                <Mail className="h-4 w-4 mr-2" />
+              <a
+                href="mailto:prajapatiashwani62@gmail.com"
+                className="break-all text-center"
+              >
+                <Mail className="h-4 w-4 mr-2 shrink-0" />
                 prajapatiashwani62@gmail.com
               </a>
             </Button>
