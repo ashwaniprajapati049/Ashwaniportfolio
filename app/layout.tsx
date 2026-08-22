@@ -70,8 +70,8 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fbfdfc' },
-    { media: '(prefers-color-scheme: dark)', color: '#0b110f' },
+    { media: '(prefers-color-scheme: light)', color: '#fcfcfe' },
+    { media: '(prefers-color-scheme: dark)', color: '#0d0b12' },
   ],
   viewport: { width: 'device-width', initialScale: 1 },
 };

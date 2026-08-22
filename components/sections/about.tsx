@@ -77,7 +77,7 @@ export function AboutSection() {
             className="lg:sticky lg:top-28 lg:self-start"
           >
             <div className="surface overflow-hidden rounded-3xl">
-              <div className="h-1.5 w-full bg-gradient-to-r from-brand via-emerald-400 to-brand" />
+              <div className="h-1.5 w-full bg-gradient-to-r from-brand via-violet-400 to-brand" />
 
               <div className="flex flex-col items-center gap-4 p-6 text-center sm:flex-row sm:items-start sm:text-left">
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl ring-2 ring-brand/25">

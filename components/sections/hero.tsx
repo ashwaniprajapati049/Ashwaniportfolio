@@ -36,7 +36,7 @@ export function HeroSection() {
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0 bg-grid" />
       <div className="glow -left-32 top-0 h-[420px] w-[420px]" />
-      <div className="glow -right-24 bottom-0 h-[360px] w-[360px] bg-emerald-400/10" />
+      <div className="glow -right-24 bottom-0 h-[360px] w-[360px] bg-violet-400/10" />
 
       <div className="container relative z-10 max-w-6xl">
         <div className="mx-auto max-w-3xl">
