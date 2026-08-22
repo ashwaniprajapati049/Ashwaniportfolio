@@ -4,48 +4,68 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    /* Brand — a single source of truth for the accent used across the site */
+    --brand: 152 62% 36%;
+    --brand-foreground: 0 0% 100%;
+    --brand-soft: 152 60% 96%;
+
+    --background: 150 20% 99%;
+    --foreground: 160 14% 8%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 160 14% 8%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.75rem;
+    --popover-foreground: 160 14% 8%;
+    --primary: var(--brand);
+    --primary-foreground: var(--brand-foreground);
+    --secondary: 150 16% 95%;
+    --secondary-foreground: 160 20% 14%;
+    --muted: 150 16% 95%;
+    --muted-foreground: 155 8% 42%;
+    --accent: 152 40% 94%;
+    --accent-foreground: 160 30% 16%;
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 150 12% 89%;
+    --input: 150 12% 89%;
+    --ring: var(--brand);
+    --radius: 0.9rem;
+
+    /* Surface treatment for glass cards */
+    --glass: 0 0% 100%;
+    --glass-alpha: 0.72;
+    --shadow-soft: 0 1px 2px rgb(16 24 20 / 0.04), 0 12px 32px -12px rgb(16 24 20 / 0.12);
+    --shadow-lift: 0 1px 2px rgb(16 24 20 / 0.05), 0 24px 48px -20px rgb(16 24 20 / 0.22);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --brand: 152 62% 52%;
+    --brand-foreground: 160 40% 6%;
+    --brand-soft: 155 40% 12%;
+
+    --background: 160 18% 5%;
+    --foreground: 150 12% 96%;
+    --card: 160 16% 8%;
+    --card-foreground: 150 12% 96%;
+    --popover: 160 16% 8%;
+    --popover-foreground: 150 12% 96%;
+    --primary: var(--brand);
+    --primary-foreground: var(--brand-foreground);
+    --secondary: 158 12% 14%;
+    --secondary-foreground: 150 12% 96%;
+    --muted: 158 12% 14%;
+    --muted-foreground: 152 8% 62%;
+    --accent: 158 16% 16%;
+    --accent-foreground: 150 12% 96%;
+    --destructive: 0 62% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 158 10% 18%;
+    --input: 158 10% 18%;
+    --ring: var(--brand);
+
+    --glass: 160 16% 9%;
+    --glass-alpha: 0.6;
+    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -12px rgb(0 0 0 / 0.6);
+    --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.5), 0 24px 48px -20px rgb(0 0 0 / 0.75);
   }
 }
 
@@ -53,30 +73,190 @@
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Anchor targets must clear the fixed navbar */
+  section[id] {
+    scroll-margin-top: 6.5rem;
+  }
+
+  ::selection {
+    background: hsl(var(--brand) / 0.25);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--brand));
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--brand) / 0.5);
   }
 }
 
-.animate-gradient {
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+@layer components {
+  /* Frosted surface used by every card on the page */
+  .surface {
+    background-color: hsl(var(--glass) / var(--glass-alpha));
+    @apply border border-border/70 backdrop-blur-xl;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .surface-lift {
+    @apply transition-all duration-300;
+  }
+  .surface-lift:hover {
+    box-shadow: var(--shadow-lift);
+    border-color: hsl(var(--brand) / 0.35);
+  }
+
+  /*
+   * Theme-aware coloured pill. Each pill carries its own hue via `--h`,
+   * so the same markup reads correctly in light and dark mode instead of
+   * hardcoding a light-only pastel background.
+   */
+  .tech-pill {
+    --h: 152;
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-medium leading-5 transition-colors;
+    background-color: hsl(var(--h) 62% 96%);
+    color: hsl(var(--h) 58% 26%);
+    border-color: hsl(var(--h) 45% 86%);
+  }
+  .dark .tech-pill {
+    background-color: hsl(var(--h) 45% 12%);
+    color: hsl(var(--h) 70% 74%);
+    border-color: hsl(var(--h) 40% 24%);
+  }
+  .tech-pill:hover {
+    background-color: hsl(var(--h) 62% 92%);
+  }
+  .dark .tech-pill:hover {
+    background-color: hsl(var(--h) 45% 16%);
+  }
+
+  .tech-pill-lg {
+    @apply px-3.5 py-1.5 text-xs;
+  }
+
+  /*
+   * Fluid display sizes. clamp() scales continuously with the viewport instead
+   * of jumping at breakpoints, which is what made the name look oversized on a
+   * narrow screen and cramped on a wide one.
+   */
+  .h-display {
+    font-size: clamp(2.35rem, 8.5vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.032em;
+  }
+
+  .h-section {
+    font-size: clamp(1.875rem, 5.2vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.022em;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-brand via-brand to-emerald-400 bg-clip-text text-transparent;
+  }
+
+  /* Faint blueprint grid, masked so it fades toward the edges */
+  .bg-grid {
+    background-image: linear-gradient(to right, hsl(var(--foreground) / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Soft colour wash behind a section */
+  .glow {
+    @apply pointer-events-none absolute rounded-full blur-[110px];
+    background: hsl(var(--brand) / 0.16);
+  }
+
+  /* Hairline divider that fades out at both ends */
+  .rule {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  /* Mouse-tracked spotlight for cards (position fed by --mx / --my) */
+  .spotlight::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      hsl(var(--brand) / 0.12),
+      transparent 65%
+    );
+  }
+  .spotlight:hover::before {
+    @apply opacity-100;
+  }
+
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
 }
 
-@keyframes gradient {
-  0% {
+@layer utilities {
+  /* Let the browser even out ragged line breaks in short headings. */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-gradient {
+    background-size: 300% 300%;
+    animation: gradient-pan 14s ease infinite;
+  }
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
     background-position: 100% 50%;
   }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
-.bg-grid-pattern {
-  background-image: linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
+/* Respect the OS "reduce motion" setting across the whole site */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

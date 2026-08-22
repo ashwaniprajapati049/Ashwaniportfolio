@@ -1,414 +1,188 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Layers3, Sparkles } from 'lucide-react';
 
-import {
-  Sparkles,
-  Code2,
-  Layers3,
-} from "lucide-react";
+import { SectionHeading } from '@/components/ui/section-heading';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { techHue } from '@/lib/tech';
+import { skills, type SkillCategory } from '@/lib/data';
 
-interface Skill {
-  name: string;
-  category: string;
-  description: string;
-  projects: string[];
-  icon: string;
-  bg: string;
-  text: string;
-}
-
-const skills: Skill[] = [
-  {
-    name: "Java",
-
-    category: "Backend",
-
-    description:
-      "Experienced in building scalable backend systems, object-oriented applications, and high-performance business logic using Java. Strong understanding of clean architecture, problem-solving, and efficient application development principles.",
-
-    projects: [
-      "Smart Dues Management System",
-      "Real-Time Weather Monitoring",
-      "Snake Game",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-
-    bg: "#FAECE7",
-
-    text: "#712B13",
-  },
-
-  {
-    name: "Spring Boot",
-
-    category: "Backend",
-
-    description:
-      "Skilled in developing secure and scalable REST APIs, backend services, and enterprise applications using Spring Boot with modern backend architecture and API-driven development practices.",
-
-    projects: [
-      "Authentication APIs",
-      "Ezyhire Backend Services",
-      "Smart Dues APIs",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
-
-    bg: "#E1F5EE",
-
-    text: "#085041",
-  },
-
-  {
-    name: "Angular",
-
-    category: "Frontend",
-
-    description:
-      "Building responsive Angular applications, enterprise dashboards, and reusable UI systems with a strong focus on performance, scalability, and seamless user experience.",
-
-    projects: [
-      "Ezyhire AI Platform",
-      "Control Room Dashboard",
-      "Smart Dues UI",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
-
-    bg: "#FCEBEB",
-
-    text: "#791F1F",
-  },
-
-  {
-    name: "TypeScript",
-
-    category: "Frontend",
-
-    description:
-      "Developing scalable frontend applications using TypeScript with clean code practices, reusable architecture, and maintainable component-driven development.",
-
-    projects: [
-      "Angular Applications",
-      "Enterprise Dashboards",
-      "API Integrations",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-
-    bg: "#E6F1FB",
-
-    text: "#0C447C",
-  },
-
-  {
-    name: "C# & .NET",
-
-    category: "Backend",
-
-    description:
-      "Worked on enterprise backend development using C# and .NET technologies, building APIs, automation workflows, and scalable business solutions within RPA and BPA environments.",
-
-    projects: [
-      "RPA Solutions",
-      "BPA Workflows",
-      "Enterprise Backend Systems",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
-
-    bg: "#EEEDFE",
-
-    text: "#3C3489",
-  },
-
-  {
-    name: "JavaScript",
-
-    category: "Frontend",
-
-    description:
-      "Creating dynamic and interactive user interfaces with modern JavaScript concepts, frontend logic implementation, animations, and client-side functionality optimization.",
-
-    projects: [
-      "Interactive UI",
-      "Frontend Logic",
-      "Modern Web Interfaces",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-
-    bg: "#FAEEDA",
-
-    text: "#633806",
-  },
-
-  {
-    name: "MySQL",
-
-    category: "Database",
-
-    description:
-      "Experienced in relational database design, query optimization, and structured data management for scalable backend systems and enterprise-level applications.",
-
-    projects: [
-      "Student Records Management",
-      "Receipt Management System",
-      "Dues Database",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-
-    bg: "#E1F5EE",
-
-    text: "#085041",
-  },
-
-  {
-    name: "HTML & CSS",
-
-    category: "Frontend",
-
-    description:
-      "Building responsive layouts, modern UI components, and scalable design systems with a strong focus on clean aesthetics, accessibility, and responsive web design.",
-
-    projects: [
-      "Portfolio Website",
-      "Responsive Components",
-      "Modern UI Layouts",
-    ],
-
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-
-    bg: "#FBEAF0",
-
-    text: "#72243E",
-  },
+const FILTERS: Array<SkillCategory | 'All'> = [
+  'All',
+  'Backend',
+  'Frontend',
+  'Database',
+  'Tools',
 ];
 
 export function SkillSection() {
+  const [filter, setFilter] = useState<SkillCategory | 'All'>('All');
+
+  const visible = useMemo(
+    () => (filter === 'All' ? skills : skills.filter((s) => s.category === filter)),
+    [filter]
+  );
+
   return (
-    <section
-      id="skills"
-      className="
-        relative overflow-hidden
-        py-20 md:py-28
-        bg-gradient-to-b
-        from-background
-        via-background
-        to-green-500/5
-      "
-    >
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+    <section id="skills" className="relative overflow-hidden py-16 md:py-20">
+      <div className="glow left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2" />
 
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
+      <div className="container relative z-10 max-w-6xl">
+        <SectionHeading
+          title={
+            <>
+              The stack I <span className="text-gradient">reach for</span>
+            </>
+          }
+          description="Tools I use day to day, and where each one has actually earned its place."
+        />
 
-        {/* Header */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 14,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{ once: true }}
-          className="text-center mb-10"
-        >
-          <div>
- 
-          </div>
+        {/*
+         * Segmented control: one recessed track with a raised highlight that
+         * slides between options, rather than a solid pill per item.
+         */}
+        <div className="mt-10 flex justify-center">
+          <div
+            role="tablist"
+            aria-label="Filter skills by category"
+            className="inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-border bg-secondary/60 p-1 backdrop-blur-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {FILTERS.map((f) => {
+              const active = filter === f;
+              const count =
+                f === 'All' ? skills.length : skills.filter((s) => s.category === f).length;
 
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Skills & Technologies
-          </h2>
-
-          <p className="mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
-            Technologies and tools I use to build
-            scalable, modern, and high-performance
-            applications with elegant user experiences.
-          </p>
-        </motion.div>
-
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{
-                opacity: 0,
-                y: 25,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{ once: true }}
-              transition={{
-                delay: index * 0.05,
-              }}
-              whileHover={{
-                y: -6,
-              }}
-              className="
-                group relative overflow-hidden
-                rounded-3xl border border-white/10
-                bg-gradient-to-br
-                from-white/70
-                to-white/40
-                dark:from-zinc-900/80
-                dark:to-zinc-950/60
-                backdrop-blur-xl
-                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-                dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-                hover:border-green-500/20
-                transition-all duration-300
-              "
-            >
-              {/* Hover Glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-r from-green-500/5 via-transparent to-emerald-500/5" />
-
-              <div className="relative p-6">
-
-                {/* Top */}
-                <div className="flex items-start gap-4">
-
-                  {/* Icon */}
-                  <div
-                    className="
-                      w-14 h-14 rounded-2xl
-                      border border-border
-                      bg-white dark:bg-zinc-900
-                      flex items-center justify-center
-                      p-2.5 shrink-0
-                      shadow-sm
-                    "
-                  >
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className="w-full h-full object-contain"
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setFilter(f)}
+                  className={`relative shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-medium transition-colors sm:px-4 sm:text-sm ${
+                    active ? 'text-brand' : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {active && (
+                    /*
+                     * Brand tint rather than a solid background: it reads as
+                     * "highlighted" against the track in both light and dark
+                     * mode, where a plain background colour would sink in one.
+                     */
+                    <motion.span
+                      layoutId="skill-filter-highlight"
+                      className="absolute inset-0 rounded-full border border-brand/40 bg-brand/20 shadow-sm"
+                      transition={{ type: 'spring', bounce: 0.18, duration: 0.5 }}
                     />
-                  </div>
+                  )}
+                  <span className="relative z-10 inline-flex items-center gap-1.5">
+                    {f}
+                    <span
+                      className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold tabular-nums transition-colors ${
+                        active
+                          ? 'bg-brand/25 text-brand'
+                          : 'bg-foreground/[0.07] text-muted-foreground'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-lg md:text-xl font-semibold tracking-tight mb-2">
-                      {skill.name}
-                    </h3>
+        {/* Skill cards */}
+        <motion.div layout className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {visible.map((skill) => (
+              <motion.div
+                key={skill.name}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25 }}
+              >
+                <SpotlightCard
+                  className="h-full"
+                  style={{ ['--h' as string]: techHue(skill.name) }}
+                >
+                  <div className="flex h-full flex-col p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-white p-2.5 dark:bg-zinc-900">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={skill.icon}
+                          alt=""
+                          loading="lazy"
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
 
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <div className="min-w-0">
+                        <h3 className="font-semibold leading-tight tracking-tight">
+                          {skill.name}
+                        </h3>
+                        <p className="mt-0.5 text-xs text-muted-foreground">
+                          {skill.category} · {skill.level}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                       {skill.description}
                     </p>
 
-                    {/* Category */}
-                    <div className="flex items-center gap-2 mt-4">
-                      <span
-                        className="text-[11px] font-semibold px-3 py-1 rounded-full border"
-                        style={{
-                          background: skill.bg,
-                          color: skill.text,
-                          borderColor: `${skill.text}20`,
-                        }}
-                      >
-                        {skill.category}
-                      </span>
-
-                      <span className="text-xs text-muted-foreground">
-                        Used in real-world projects
-                      </span>
+                    <div className="mt-5">
+                      <div className="mb-2.5 flex items-center gap-1.5">
+                        <Layers3 className="h-3.5 w-3.5 text-brand" />
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                          Used in
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {skill.usedIn.map((use) => (
+                          <span
+                            key={use}
+                            className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-[11px] text-muted-foreground"
+                          >
+                            {use}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </SpotlightCard>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-                {/* Divider */}
-                <div className="my-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-                {/* Projects */}
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Layers3 className="h-4 w-4 text-green-500" />
-
-                    <p className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground">
-                      Projects & Usage
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {skill.projects.map((project) => (
-                      <span
-                        key={project}
-                        className="
-                          px-3 py-1
-                          rounded-full
-                          text-[11px]
-                          font-medium
-                          border border-border
-                          bg-background/50
-                          backdrop-blur-sm
-                          hover:border-green-500/20
-                          transition
-                        "
-                      >
-                        {project}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
+        {/* Closing note */}
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{ once: true }}
-          transition={{
-            delay: 0.2,
-          }}
-          className="
-            mt-14 text-center
-            rounded-3xl border border-border
-            bg-background/50
-            backdrop-blur-sm
-            p-8
-          "
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="surface mt-14 rounded-3xl p-8 text-center md:p-10"
         >
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 mb-5 shadow-lg shadow-green-500/10">
-  <Code2 className="h-7 w-7 text-green-500" />
-</div>
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-brand/20 bg-brand/10">
+            <Sparkles className="h-7 w-7 text-brand" />
+          </div>
 
-<h3 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
-  Driven by Innovation & Continuous Growth
-</h3>
+          <h3 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+            Still adding to the list
+          </h3>
 
-<p className="mt-4 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
-  Passionate about building impactful digital experiences through
-  modern technologies, scalable architecture, and clean engineering practices.
-  Constantly exploring new tools, AI-driven solutions, and advanced development
-  approaches to create high-performance applications that solve real-world problems.
-</p>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            I pick up whatever the problem needs — most recently AI-assisted workflows
+            and performance profiling on data-heavy dashboards. The constant is caring
+            about architecture that stays readable long after the first release.
+          </p>
         </motion.div>
       </div>
     </section>

@@ -1,398 +1,249 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { Menu, Moon, Sun, X, ArrowUpRight, Download } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { navItems, profile } from '@/lib/data';
 
-import {
-  Menu,
-  Moon,
-  Sun,
-  X,
-  ArrowUpRight,
-} from "lucide-react";
-
-import { useTheme } from "next-themes";
-
-const navItems = [
-  { name: "Home", path: "/#" },
-  { name: "About", path: "/#about" },
-  { name: "Experience", path: "/#experiences" },
-  { name: "Projects", path: "/#projects" },
-  { name: "Skills", path: "/#skills" },
-  { name: "Contact", path: "/#contact" },
-];
+const SECTION_IDS = navItems.map((item) => item.href.replace('/#', ''));
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] =
-    useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [active, setActive] = useState('home');
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] =
-    useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
 
-  const [mounted, setMounted] =
-    useState(false);
+  useEffect(() => setMounted(true), []);
 
-  const [activeSection, setActiveSection] =
-    useState("/#");
-
-  const { theme, setTheme } = useTheme();
-
-  // Navbar scroll effect
   useEffect(() => {
-    setMounted(true);
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
-
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
-
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Active section scroll spy
+  /*
+   * Scroll spy via IntersectionObserver rather than measuring offsets on every
+   * scroll event — the browser does the work off the main thread, and the
+   * top-most intersecting section wins so overlapping sections stay stable.
+   */
   useEffect(() => {
-    const sections = [
-      "about",
-      "projects",
-      "skills",
-      "experiences",
-      "contact",
-    ];
+    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el !== null
+    );
+    if (elements.length === 0) return;
 
-    const handleScroll = () => {
-      const scrollPosition =
-        window.scrollY + 140;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
-      let current = "/#";
-
-      sections.forEach((section) => {
-        const element =
-          document.getElementById(section);
-
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const height = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition <
-              offsetTop + height
-          ) {
-            current = `/#${section}`;
-          }
-        }
-      });
-
-      if (window.scrollY < 120) {
-        current = "/#";
-      }
-
-      setActiveSection(current);
-    };
-
-    handleScroll();
-
-    window.addEventListener(
-      "scroll",
-      handleScroll
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
     );
 
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  // Keep the page behind the mobile sheet from scrolling.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  // Close the sheet on Escape.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMenuOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
     <>
-      {/* Navbar */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{
-          duration: 0.5,
-          ease: "easeOut",
-        }}
+      <header
         className={cn(
-          "fixed top-0 z-50 w-full transition-all duration-300",
-          isScrolled
-            ? "py-3"
-            : "py-5"
+          'fixed inset-x-0 top-0 z-50 transition-all duration-300',
+          isScrolled ? 'py-2.5' : 'py-4'
         )}
       >
-        <div className="container mx-auto max-w-7xl px-4 md:px-6">
-          <div
+        <div className="container max-w-6xl">
+          <nav
             className={cn(
-              `
-                flex items-center justify-between
-                rounded-2xl
-                border border-white/10
-                px-5 md:px-6
-                transition-all duration-300
-              `,
+              'flex h-16 items-center justify-between rounded-2xl border px-4 transition-all duration-300 md:px-5',
               isScrolled
-                ? `
-                  h-16
-                  bg-background/70
-                  backdrop-blur-xl
-                  shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-                  dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-                `
-                : `
-                  h-16
-                  bg-background/40
-                  backdrop-blur-md
-                `
+                ? 'surface border-border/70'
+                : 'border-transparent bg-background/30 backdrop-blur-md'
             )}
           >
-            {/* Logo */}
-            <Link
-              href="/#"
-              className="group flex items-center gap-3"
-            >
-<div
-  className="
-    relative
-    w-11 h-11
-    rounded-2xl
-    overflow-hidden
-    ring-2 ring-green-500/20
-    shadow-lg shadow-green-500/20
-    shrink-0
-  "
->
-  <img
-    src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
-    alt="Ashwani Prajapati"
-    className="w-full h-full object-cover object-top"
-  />
-</div>
-
-              <div className="hidden sm:block">
-                <p className="text-sm font-semibold tracking-tight">
-                  Ashwani Prajapati
-                </p>
-
-                <p className="text-[11px] text-muted-foreground">
-                  Software Engineer
-                </p>
-              </div>
+            {/* Brand */}
+            <Link href="/#home" className="flex items-center gap-3">
+              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl shadow-lg shadow-brand/20 ring-2 ring-brand/30">
+                <Image
+                  src={profile.avatar}
+                  alt=""
+                  fill
+                  sizes="40px"
+                  priority
+                  className="object-cover object-top"
+                />
+              </span>
+              <span className="hidden sm:block">
+                <span className="block text-sm font-semibold leading-tight tracking-tight">
+                  {profile.name}
+                </span>
+                <span className="block text-[11px] text-muted-foreground">
+                  {profile.role}
+                </span>
+              </span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-2">
+            {/* Desktop links */}
+            <div className="hidden items-center gap-1 lg:flex">
               {navItems.map((item) => {
-                const isActive =
-                  activeSection === item.path;
+                const id = item.href.replace('/#', '');
+                const isActive = active === id;
 
                 return (
                   <Link
-                    key={item.path}
-                    href={item.path}
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
                     className={cn(
-                      `
-                        relative px-4 py-2
-                        rounded-full
-                        text-sm font-medium
-                        transition-all duration-300
-                      `,
-                      isActive
-                        ? "text-green-600 dark:text-green-400"
-                        : "text-muted-foreground hover:text-foreground"
+                      'relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors',
+                      isActive ? 'text-brand' : 'text-muted-foreground hover:text-foreground'
                     )}
                   >
                     {isActive && (
-                      <motion.div
-                        layoutId="navbar-pill"
-                        className="
-                          absolute inset-0
-                          rounded-full
-                          bg-green-500/10
-                          border border-green-500/20
-                        "
-                        transition={{
-                          type: "spring",
-                          bounce: 0.2,
-                          duration: 0.5,
-                        }}
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 rounded-full border border-brand/20 bg-brand/10"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                       />
                     )}
-
-                    <span className="relative z-10">
-                      {item.name}
-                    </span>
+                    <span className="relative z-10">{item.name}</span>
                   </Link>
                 );
               })}
             </div>
 
-            {/* Right Side */}
-            <div className="flex items-center gap-2">
-              {/* Theme Toggle */}
+            {/* Actions */}
+            <div className="flex items-center gap-1.5">
+              <Button
+                asChild
+                size="sm"
+                className="hidden rounded-full md:inline-flex"
+              >
+                <a href={profile.resume} target="_blank" rel="noopener noreferrer">
+                  <Download className="mr-1.5 h-3.5 w-3.5" />
+                  Resume
+                </a>
+              </Button>
+
               <Button
                 variant="ghost"
                 size="icon"
                 aria-label="Toggle theme"
-                onClick={() =>
-                  setTheme(
-                    theme === "dark"
-                      ? "light"
-                      : "dark"
-                  )
-                }
-                className="
-                  rounded-xl
-                  hover:bg-green-500/10
-                  hover:text-green-600
-                "
+                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                className="rounded-xl hover:bg-brand/10 hover:text-brand"
               >
-                {theme === "dark" ? (
+                {/*
+                 * Reserve the slot before hydration so the header never shifts;
+                 * `resolvedTheme` (not `theme`) is what makes the first click
+                 * behave correctly when the theme is still "system".
+                 */}
+                {!mounted ? (
+                  <span className="h-5 w-5" />
+                ) : resolvedTheme === 'dark' ? (
                   <Sun className="h-5 w-5" />
                 ) : (
                   <Moon className="h-5 w-5" />
                 )}
               </Button>
 
-              {/* Mobile Menu */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="
-                  lg:hidden
-                  rounded-xl
-                  hover:bg-green-500/10
-                  hover:text-green-600
-                "
-                onClick={() =>
-                  setIsMobileMenuOpen(
-                    !isMobileMenuOpen
-                  )
-                }
+                aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((v) => !v)}
+                className="rounded-xl hover:bg-brand/10 hover:text-brand lg:hidden"
               >
-                {isMobileMenuOpen ? (
-                  <X className="h-5 w-5" />
-                ) : (
-                  <Menu className="h-5 w-5" />
-                )}
+                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
             </div>
-          </div>
+          </nav>
         </div>
-      </motion.nav>
+      </header>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile sheet */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: -20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              y: -20,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-            className="
-              fixed top-[88px] left-4 right-4 z-40
-              lg:hidden
-            "
-          >
-            <div
-              className="
-                rounded-3xl
-                border border-white/10
-                bg-background/80
-                backdrop-blur-2xl
-                shadow-[0_10px_40px_rgba(0,0,0,0.15)]
-                overflow-hidden
-              "
+        {menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm lg:hidden"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.22 }}
+              className="fixed inset-x-4 top-[84px] z-50 lg:hidden"
             >
-              <div className="p-4">
-                {navItems.map(
-                  (item, index) => {
-                    const isActive =
-                      activeSection ===
-                      item.path;
+              <div className="surface overflow-hidden rounded-3xl p-3">
+                {navItems.map((item, i) => {
+                  const isActive = active === item.href.replace('/#', '');
 
-                    return (
-                      <motion.div
-                        key={item.path}
-                        initial={{
-                          opacity: 0,
-                          x: -10,
-                        }}
-                        animate={{
-                          opacity: 1,
-                          x: 0,
-                        }}
-                        transition={{
-                          delay:
-                            index * 0.05,
-                        }}
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className={cn(
+                          'flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition-colors',
+                          isActive
+                            ? 'bg-brand/10 text-brand'
+                            : 'text-muted-foreground hover:bg-brand/5 hover:text-foreground'
+                        )}
                       >
-                        <Link
-                          href={item.path}
-                          onClick={() =>
-                            setIsMobileMenuOpen(
-                              false
-                            )
-                          }
-                          className={cn(
-                            `
-                              flex items-center justify-between
-                              rounded-2xl
-                              px-4 py-3
-                              text-sm font-medium
-                              transition-all duration-300
-                            `,
-                            isActive
-                              ? `
-                                bg-green-500/10
-                                text-green-600
-                                dark:text-green-400
-                              `
-                              : `
-                                text-muted-foreground
-                                hover:bg-green-500/5
-                                hover:text-foreground
-                              `
-                          )}
-                        >
-                          {item.name}
+                        {item.name}
+                        <ArrowUpRight className="h-4 w-4" />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
 
-                          <ArrowUpRight className="h-4 w-4" />
-                        </Link>
-                      </motion.div>
-                    );
-                  }
-                )}
+                <Button asChild className="mt-2 w-full rounded-2xl">
+                  <a href={profile.resume} target="_blank" rel="noopener noreferrer">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download resume
+                  </a>
+                </Button>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

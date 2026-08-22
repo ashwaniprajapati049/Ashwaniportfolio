@@ -1,96 +1,86 @@
-Hi, I’m Ashwani Prajapati, a Software Engineer with hands-on experience in Java, Spring Boot, Full-Stack Development, and modern frontend technologies.
-I enjoy building scalable backend systems, clean UIs, and real-world projects that solve meaningful problems.
+# Ashwani Prajapati — Portfolio
 
-This portfolio reflects:
+Personal portfolio of **Ashwani Prajapati**, a Software Engineer working with Java, Spring Boot, Angular and .NET in Bengaluru.
 
-My technical skills
+Built as a statically exported Next.js app: dark-first design, a single brand token driving the whole palette, and all content held in one data file.
 
-My learning journey
+## Tech stack
 
-My approach to clean and maintainable code
+| Layer      | Choice                                      |
+| ---------- | ------------------------------------------- |
+| Framework  | Next.js 13 (App Router, static export)      |
+| Language   | TypeScript                                  |
+| Styling    | Tailwind CSS + CSS custom properties        |
+| Components | shadcn/ui (Radix primitives)                |
+| Motion     | Framer Motion                               |
+| Fonts      | Inter (body) · Sora (display)               |
+| Contact    | EmailJS                                     |
 
-🎨 Portfolio Features
+## Structure
 
-💫 Animated Hero Section – Smooth intro animations with modern design
+```
+app/
+  layout.tsx        Metadata, OpenGraph, JSON-LD, theme provider, chrome
+  page.tsx          Section composition
+  globals.css       Design tokens + shared component classes
+components/
+  navbar.tsx        Sticky header, IntersectionObserver scroll spy
+  footer.tsx
+  sections/         hero · about · experiences · project · skills · contact
+  ui/               shadcn primitives + section-heading, tech-pill, spotlight-card
+lib/
+  data.ts           Single source of truth for all portfolio content
+  tech.ts           Hue lookup powering the technology pills
+```
 
-📱 Responsive Navbar – Sticky, interactive, and mobile-friendly
+### Editing content
 
-👤 About Section – Personal introduction with animated skill indicators
+Nothing is hardcoded in the sections. Change a job, project, skill or link in
+[`lib/data.ts`](lib/data.ts) and it updates everywhere it appears, including the
+page metadata and structured data.
 
-💻 Projects Showcase – Interactive project cards with hover effects
+### Theming
 
-🛠 Skills Section – Visual representation of my technical stack
+The accent colour is one token. Change `--brand` in `app/globals.css` (light and
+dark blocks) and the buttons, pills, glows, links and gradients all follow.
 
-✉️ Contact Section – Clean and simple way to reach me
+## Running locally
 
-⚡ Performance Optimized – Fast loading and smooth transitions
-
-🌍 Fully Responsive – Works seamlessly on mobile, tablet, and desktop
-
-🛠 Tech Stack
-
-Next.js – Routing, performance optimization, and modern React features
-
-TypeScript – Type safety and better maintainability
-
-Tailwind CSS – Fast, responsive, utility-first styling
-
-Framer Motion – Smooth animations and transitions
-
-ShadCN UI – Clean, modern, and reusable UI components
-
-🌐 Getting Started (Run Locally)
-1️⃣ Clone the repository
-git clone  https://github.com/ashwaniprajapati049/Ashwaniportfolio.git
-
-2️⃣ Install dependencies
-cd Ashwani_Prajapati
+```bash
+git clone https://github.com/ashwaniprajapati049/Ashwaniportfolio.git
+cd Ashwaniportfolio
 npm install
-
-3️⃣ Start the development server
 npm run dev
+```
 
+Open http://localhost:3000.
 
-Now open 👉 http://localhost:3000
- 🚀
+```bash
+npm run build   # static export to ./out
+npm run lint
+```
 
-📌 What I’m Improving Next
+### Contact form
 
-Adding more real-world projects
+The form posts through EmailJS. The IDs in `components/sections/contact.tsx`
+fall back to working defaults, and can be overridden per deploy with:
 
-Improving animations & micro-interactions
+```
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+```
 
-Better SEO & performance optimization
+## Notes
 
-Deploying the portfolio with custom domain
+- Fully responsive, light and dark themes, and honours `prefers-reduced-motion`.
+- Keyboard accessible: skip link, focus-visible rings, labelled controls, `aria-invalid` form errors.
+- SEO: OpenGraph/Twitter cards, canonical URL, robots directives and Person structured data.
 
-Adding blog / learning section (future plan)
+## Contact
 
-🤝 Contributing
+- Email — prajapatiashwani62@gmail.com
+- GitHub — https://github.com/ashwaniprajapati049
+- LinkedIn — https://www.linkedin.com/in/ashwani-prajapati-43744222a/
 
-This is my personal portfolio, but suggestions and improvements are always welcome!
-
-If you want to contribute:
-
-Fork the repository
-
-Create a feature branch
-
-Commit your changes
-
-Open a pull request
-
-📜 License
-
-This project is licensed under the MIT License.
-
-📬 Contact Me
-
-Email: prajapatiashwani62@gmail.com
-
-GitHub:(https://github.com/ashwaniprajapati049)
-
-LinkedIn:(https://www.linkedin.com/in/ashwani-prajapati-43744222a/)
-⭐ Thanks for visiting my portfolio!
-
-If you like it, feel free to star ⭐ the repository or reach out for collaboration.
+Licensed under the MIT License.

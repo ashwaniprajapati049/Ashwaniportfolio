@@ -1,607 +1,154 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, MapPin, ChevronDown, Check } from 'lucide-react';
 
-import {
-  motion,
-  AnimatePresence,
-} from "framer-motion";
-
-import { Button } from "@/components/ui/button";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-  Calendar,
-  ChevronRight,
-  Briefcase,
-  Sparkles,
-} from "lucide-react";
-
-import Image from "next/image";
-
-const GITHUB_URL =
-  "https://github.com/ashwaniprajapati049";
-
-const LINKEDIN_URL =
-  "https://www.linkedin.com/in/ashwani-prajapati-43744222a/";
-
-type Experience = {
-  role: string;
-  company: string;
-  location: string;
-  duration: string;
-  type: string;
-  description: string;
-  technologies: string[];
-  companyLogo: string;
-  bg: string;
-  text: string;
-  current?: boolean;
-};
-
-const experiences: Experience[] = [
-  {
-    role: "Software Engineer",
-    company: "CA-One Tech",
-    location: "Bengaluru, India",
-    duration: "Feb 2026 – Present",
-    type: "Full-time",
-    current: true,
-  description:
-  "Working as a Full Stack Engineer at CA-One Tech, contributing to the development of the AI-powered recruitment platform 'Ezyhire'. Building scalable Angular applications, modern dashboards, and intelligent user workflows while also developing backend services using Java and Spring Boot. Responsible for creating responsive UI components, integrating REST APIs, optimizing application performance, and collaborating across teams to deliver seamless enterprise-grade solutions powered by modern web technologies and AI-driven features.",
-
-technologies: [
-  "Angular",
-  "TypeScript",
-  "JavaScript",
-  "Java",
-  "Spring Boot",
-  "Tailwind CSS",
-  "REST APIs",
-  "AI Integration",
-  "Responsive UI",
-  "Frontend Architecture",
-  "Backend Development",
-  "Dashboard Development",
-],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1775746071/caone_logo_lvl3gk.png",
-    bg: "#E1F5EE",
-    text: "#085041",
-  },
-
-  {
-    role: "Software Trainee",
-    company: "Intellibuddies – VIT Infotech",
-    location: "Bengaluru, India",
-    duration: "Mar 2025 – Jan 2026",
-    type: "Trainee",
-   description:
-  "Worked as a Full Stack Engineer Trainee on enterprise-level RPA & BPA (Robotic Process Automation and Business Process Automation) solutions at Intellibuddies. Contributed to developing responsive Angular dashboards, workflow management interfaces, and backend services using C# and .NET technologies. Integrated frontend applications with REST APIs, optimized application performance, and collaborated in Agile development environments to deliver scalable automation-driven enterprise solutions.",
-
-technologies: [
-  "Angular",
-  "TypeScript",
-  "JavaScript",
-  "C#",
-  ".NET",
-  "REST APIs",
-  "RPA",
-  "BPA",
-  "Dashboard Development",
-  "Frontend Development",
-  "Backend Development",
-  "Agile",
-],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383257/vit_infotech_logo_ukawu0.jpg",
-    bg: "#E6F1FB",
-    text: "#0C447C",
-  },
-
-  {
-    role: "Web Development Intern",
-    company:
-      "GeeksforGeeks – MANIT Bhopal",
-    location: "Bhopal, India",
-    duration: "Aug 2024 - Jan 2025",
-    type: "Internship",
-   description:
-  "Completed intensive Web Development training at GeeksforGeeks – MANIT Bhopal, focusing on modern frontend development, responsive UI design, and core web technologies. Built multiple practical projects including responsive portfolio websites, interactive web applications, and frontend UI components while strengthening problem-solving skills and understanding of real-world web development practices.",
-
-technologies: [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "Responsive Design",
-  "Frontend Development",
-  "UI Design",
-  "Web Development",
-  "Git",
-],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1770383608/GG_Logo_tcir8i.png",
-    bg: "#FAECE7",
-    text: "#712B13",
-  },
-
-  {
-    role: "Student Coordinator",
-    company:
-      "Radharaman Institute of Technology & Science",
-    location: "Bhopal, India",
-    duration: "2023 – 2024",
-   type: "Leadership & Coordination",
-
-description:
-  "Served as Student Coordinator, managing and organizing technical events, academic activities, workshops, and student engagement programs within the institution. Coordinated between faculty members and students to ensure smooth execution of college initiatives, improved team collaboration, and supported event planning, communication, and operational management in fast-paced environments.",
-
-technologies: [
-  "Leadership",
-  "Team Collaboration",
-  "Communication",
-  "Event Management",
-  "Coordination",
-  "Problem Solving",
-  "Public Speaking",
-  "Teamwork",
-],
-    companyLogo:
-      "https://res.cloudinary.com/dwciao4x3/image/upload/v1775745822/log_rgi_omhvjg.jpg",
-    bg: "#EEEDFE",
-    text: "#3C3489",
-  },
-];
+import { SectionHeading } from '@/components/ui/section-heading';
+import { TechPill } from '@/components/ui/tech-pill';
+import { experiences } from '@/lib/data';
 
 export function ExperienceSection() {
-  const [selected, setSelected] =
-    useState<Experience | null>(null);
-
-  const scrollToContact = () => {
-    setSelected(null);
-
-    setTimeout(() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({
-          behavior: "smooth",
-        });
-    }, 200);
-  };
+  // The current role starts open; the rest expand on demand.
+  const [open, setOpen] = useState<string | null>(
+    experiences.find((e) => e.current)?.company ?? null
+  );
 
   return (
-    <section
-      id="experiences"
-      className="
-        relative overflow-hidden
-        py-20 md:py-28
-        bg-gradient-to-b
-        from-background
-        via-background
-        to-green-500/5
-      "
-    >
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+    <section id="experiences" className="relative overflow-hidden py-16 md:py-20">
+      <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.4]" />
+      <div className="glow right-0 top-1/4 h-[420px] w-[420px]" />
 
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
+      <div className="container relative z-10 max-w-5xl">
+        <SectionHeading
+          title="Where I've worked"
+          description="Enterprise products, automation platforms and campus teams — the roles that shaped how I build."
+        />
 
-        {/* Header */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 14,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div>
-            
-          </div>
+        <div className="relative mt-12">
+          {/* Timeline spine */}
+          <div className="absolute bottom-0 left-[19px] top-2 hidden w-px bg-gradient-to-b from-brand/50 via-border to-transparent sm:block" />
 
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Work Experience
-          </h2>
+          <div className="space-y-5">
+            {experiences.map((exp, i) => {
+              const isOpen = open === exp.company;
 
-          <p className="mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
-            Building scalable applications,
-            crafting modern interfaces,
-            and delivering impactful digital
-            experiences across startups
-            and enterprise teams.
-          </p>
-        </motion.div>
-
-        {/* Timeline */}
-        <div className="relative">
-
-          {/* Vertical Line */}
-          <div className="hidden md:block absolute left-[32px] top-0 bottom-0 w-px bg-gradient-to-b from-green-500/40 via-border to-transparent" />
-
-          <div className="space-y-8">
-            {experiences.map((exp, i) => (
-              <motion.div
-                key={exp.company}
-                initial={{
-                  opacity: 0,
-                  y: 25,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: i * 0.08,
-                }}
-                className="flex gap-5 md:gap-8"
-              >
-                {/* Timeline Dot */}
-                <div className="hidden md:flex pt-8 relative">
-                  <div
-                    className={`
-                      w-4 h-4 rounded-full border-4 z-10
-                      ${
-                        exp.current
-                          ? "bg-green-500 border-green-500 shadow-[0_0_0_6px_rgba(34,197,94,0.15)]"
-                          : "bg-background border-border"
-                      }
-                    `}
-                  />
-                </div>
-
-                {/* Card */}
+              return (
                 <motion.div
-                  whileHover={{
-                    y: -5,
-                  }}
-                  className="
-                    group relative overflow-hidden
-                    flex-1 rounded-3xl
-                    border border-white/10
-                    bg-gradient-to-br
-                    from-white/70
-                    to-white/40
-                    dark:from-zinc-900/80
-                    dark:to-zinc-950/60
-                    backdrop-blur-xl
-                    shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-                    dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-                    hover:border-green-500/30
-                    transition-all duration-300
-                  "
+                  key={exp.company}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                  className="relative sm:pl-16"
                 >
-                  {/* Hover Glow */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-r from-green-500/5 via-transparent to-emerald-500/5" />
+                  {/* Timeline node */}
+                  <span
+                    className={`absolute left-[13px] top-8 hidden h-3.5 w-3.5 rounded-full border-2 sm:block ${
+                      exp.current
+                        ? 'animate-pulse-ring border-brand bg-brand'
+                        : 'border-border bg-background'
+                    }`}
+                  />
 
-                  <div className="relative p-6 md:p-7">
+                  <div className="surface surface-lift overflow-hidden rounded-3xl">
+                    {/* Header — the whole row toggles the detail panel */}
+                    <button
+                      type="button"
+                      onClick={() => setOpen(isOpen ? null : exp.company)}
+                      aria-expanded={isOpen}
+                      className="flex w-full items-start gap-4 p-5 text-left md:p-6"
+                    >
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-white dark:bg-zinc-900">
+                        <Image
+                          src={exp.logo}
+                          alt=""
+                          width={44}
+                          height={44}
+                          className="object-contain p-1"
+                        />
+                      </div>
 
-                    {/* Top */}
-                    <div className="flex items-start justify-between gap-4">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-base font-semibold tracking-tight md:text-lg">
+                            {exp.role}
+                          </h3>
+                          {exp.current && (
+                            <span className="rounded-full border border-brand/25 bg-brand/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
+                              Current
+                            </span>
+                          )}
+                        </div>
 
-                      {/* Left */}
-                      <div className="flex gap-4">
+                        <p className="mt-1 text-sm font-medium text-muted-foreground">
+                          {exp.company}
+                        </p>
 
-                        {/* Logo */}
-                        <div
-                          className="
-                            w-14 h-14 rounded-2xl
-                            bg-white dark:bg-zinc-900
-                            border border-border
-                            flex items-center justify-center
-                            shadow-sm shrink-0
-                          "
+                        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+                          <span className="inline-flex items-center gap-1.5">
+                            <Calendar className="h-3.5 w-3.5" />
+                            {exp.duration}
+                          </span>
+                          <span className="inline-flex items-center gap-1.5">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {exp.location}
+                          </span>
+                          <span className="rounded-full border border-border bg-secondary px-2.5 py-0.5 font-medium">
+                            {exp.type}
+                          </span>
+                        </div>
+                      </div>
+
+                      <ChevronDown
+                        className={`mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 ${
+                          isOpen ? 'rotate-180 text-brand' : ''
+                        }`}
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden"
                         >
-                          <Image
-                            src={exp.companyLogo}
-                            alt={exp.company}
-                            width={50}
-                            height={50}
-                            className="object-contain p-1"
-                          />
-                        </div>
+                          <div className="px-5 pb-6 md:px-6">
+                            <div className="rule mb-5" />
 
-                        {/* Info */}
-                        <div>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="text-lg md:text-xl font-semibold tracking-tight">
-                              {exp.role}
-                            </h3>
-
-                            {exp.current && (
-                              <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20">
-                                CURRENT
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="flex items-center gap-2 mt-1">
-                            <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
-
-                            <p className="text-sm font-medium text-muted-foreground">
-                              {exp.company}
+                            <p className="text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+                              {exp.summary}
                             </p>
+
+                            <ul className="mt-5 space-y-2.5">
+                              {exp.highlights.map((point) => (
+                                <li key={point} className="flex gap-3 text-sm leading-relaxed">
+                                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                                  <span className="text-muted-foreground">{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+
+                            <div className="mt-6 flex flex-wrap gap-2">
+                              {exp.technologies.map((tech) => (
+                                <TechPill key={tech} label={tech} />
+                              ))}
+                            </div>
                           </div>
-
-                          <div className="flex flex-wrap items-center gap-3 mt-3 text-[12px] text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="h-3.5 w-3.5" />
-                              {exp.duration}
-                            </span>
-
-                            <span className="flex items-center gap-1">
-                              <MapPin className="h-3.5 w-3.5" />
-                              {exp.location}
-                            </span>
-
-                            <span
-                              className="px-2.5 py-1 rounded-full font-medium border"
-                              style={{
-                                background: exp.bg,
-                                color: exp.text,
-                                borderColor: `${exp.text}20`,
-                              }}
-                            >
-                              {exp.type}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Desktop Button */}
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="
-                          hidden md:flex
-                          rounded-full
-                          gap-1.5
-                          hover:border-green-500/30
-                          hover:bg-green-500/5
-                          hover:text-green-600
-                        "
-                        onClick={() =>
-                          setSelected(exp)
-                        }
-                      >
-                        Details
-                        <ChevronRight className="h-3.5 w-3.5" />
-                      </Button>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="my-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-                    {/* Description */}
-                    <p className="text-sm md:text-[15px] leading-relaxed text-muted-foreground">
-                      {exp.description}
-                    </p>
-
-                    {/* Bottom */}
-                    <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-
-                      {/* Tech Pills */}
-                      <div className="flex flex-wrap gap-2">
-                        {exp.technologies.map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="
-                                px-3 py-1
-                                rounded-full
-                                text-[11px]
-                                font-medium
-                                border border-border
-                                bg-background/50
-                                backdrop-blur-sm
-                                hover:border-green-500/30
-                                transition
-                              "
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
-                      </div>
-
-                      {/* Mobile Button */}
-                      <Button
-                        size="sm"
-                        className="
-                          md:hidden
-                          rounded-full
-                          bg-green-600
-                          hover:bg-green-700
-                          text-white
-                        "
-                        onClick={() =>
-                          setSelected(exp)
-                        }
-                      >
-                        View Details
-                      </Button>
-                    </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </motion.div>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selected && (
-          <Dialog
-            open={!!selected}
-            onOpenChange={() =>
-              setSelected(null)
-            }
-          >
-            <DialogContent className="sm:max-w-[650px] rounded-3xl overflow-hidden border border-border p-0">
-              {/* Accent Line */}
-              <div
-                className="h-1.5 w-full"
-                style={{
-                  background:
-                    selected.text,
-                }}
-              />
-
-              <div className="p-7">
-
-                {/* Header */}
-                <DialogHeader className="mb-7">
-                  <div className="flex items-start gap-4">
-
-                    {/* Logo */}
-                    <div className="w-16 h-16 rounded-2xl border border-border bg-white dark:bg-zinc-900 overflow-hidden flex items-center justify-center shrink-0">
-                      <Image
-                        src={
-                          selected.companyLogo
-                        }
-                        alt={
-                          selected.company
-                        }
-                        width={56}
-                        height={56}
-                        className="object-contain p-1"
-                      />
-                    </div>
-
-                    {/* Info */}
-                    <div>
-                      <DialogTitle className="text-2xl font-semibold tracking-tight">
-                        {selected.role}
-                      </DialogTitle>
-
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {
-                          selected.company
-                        }
-                      </p>
-
-                      <div className="flex flex-wrap items-center gap-3 mt-4 text-[12px] text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="h-3.5 w-3.5" />
-                          {
-                            selected.duration
-                          }
-                        </span>
-
-                        <span className="flex items-center gap-1">
-                          <MapPin className="h-3.5 w-3.5" />
-                          {
-                            selected.location
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <DialogDescription className="pt-6 text-sm md:text-[15px] leading-relaxed text-muted-foreground">
-                    {
-                      selected.description
-                    }
-                  </DialogDescription>
-                </DialogHeader>
-
-                {/* Technologies */}
-                <div className="mb-8">
-                  <p className="text-[11px] uppercase tracking-[0.25em] font-semibold text-muted-foreground mb-4">
-                    Technologies
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {selected.technologies.map(
-                      (tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 rounded-full text-xs font-medium border"
-                          style={{
-                            background:
-                              selected.bg,
-                            color:
-                              selected.text,
-                            borderColor: `${selected.text}20`,
-                          }}
-                        >
-                          {tech}
-                        </span>
-                      )
-                    )}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex flex-wrap gap-3 border-t border-border pt-6">
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-full gap-2"
-                  >
-                    <a
-                      href={GITHUB_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-4 w-4" />
-                      GitHub
-                    </a>
-                  </Button>
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-full gap-2"
-                  >
-                    <a
-                      href={LINKEDIN_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                      LinkedIn
-                    </a>
-                  </Button>
-
-                  <Button
-                    onClick={
-                      scrollToContact
-                    }
-                    className="
-                      ml-auto rounded-full
-                      bg-green-600
-                      hover:bg-green-700
-                      text-white
-                      gap-2
-                    "
-                  >
-                    <Mail className="h-4 w-4" />
-                    Contact Me
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

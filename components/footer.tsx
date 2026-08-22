@@ -1,161 +1,149 @@
-"use client";
+'use client';
 
-import {
-  Github,
-  Linkedin,
-  Mail,
-  Phone,
-  MapPin,
-} from "lucide-react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Github, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
+import { LeetCodeIcon } from '@/components/icons/leetcode';
+import { profile, navItems } from '@/lib/data';
+
+const SOCIALS = [
+  { icon: Github, href: profile.github, label: 'GitHub' },
+  { icon: Linkedin, href: profile.linkedin, label: 'LinkedIn' },
+  { icon: LeetCodeIcon, href: profile.leetcode, label: 'LeetCode' },
+  { icon: Mail, href: `mailto:${profile.email}`, label: 'Email' },
+];
+
+const CONTACT = [
+  { icon: Mail, value: profile.email, href: `mailto:${profile.email}`, breakAll: true },
+  { icon: Phone, value: profile.phone, href: profile.phoneHref, breakAll: false },
+  { icon: MapPin, value: profile.location, href: undefined, breakAll: false },
+];
+
+/** Small uppercase column label. */
+function ColumnLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+      {children}
+    </h3>
+  );
+}
 
 export function Footer() {
   return (
-    <footer
-      className="
-        w-full border-t border-border
-        bg-gradient-to-b
-        from-background
-        to-green-500/5
-      "
-    >
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 py-8">
+    <footer className="relative overflow-hidden border-t border-border">
+      <div className="glow -bottom-40 left-1/2 h-[400px] w-[500px] -translate-x-1/2 opacity-60" />
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+      {/* Extra bottom padding on mobile so the floating back-to-top control
+          never sits on top of the copyright line. */}
+      <div className="container relative z-10 max-w-6xl pb-24 pt-10 sm:pb-10 md:py-14">
+        <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1.1fr] md:gap-10">
+          {/* ── Identity ─────────────────────────────────────── */}
+          <div>
+            <Link href="/#home" className="inline-flex items-center gap-3">
+              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl ring-2 ring-brand/30">
+                <Image
+                  src={profile.avatar}
+                  alt=""
+                  fill
+                  sizes="40px"
+                  className="object-cover object-top"
+                />
+              </span>
+              <span className="font-display text-lg font-semibold tracking-tight">
+                {profile.name}
+              </span>
+            </Link>
 
-          {/* Left Section */}
-          <div className="text-center md:text-left">
-            <h3 className="text-xl font-semibold tracking-tight">
-              Ashwani Prajapati
-            </h3>
-
-            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-              Software Engineer · Java · Spring Boot · Angular
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              {profile.headline} building scalable backend services and the interfaces
+              that sit on top of them.
             </p>
 
-            <div className="flex items-center justify-center md:justify-start gap-2 mt-3 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4 text-green-500" />
-
-              Bengaluru, Karnataka, India
+            <div className="mt-5 flex gap-2">
+              {SOCIALS.map(({ icon: Icon, href, label }) => (
+                <Button
+                  key={label}
+                  asChild
+                  variant="outline"
+                  size="icon"
+                  className="rounded-2xl hover:border-brand/40 hover:bg-brand/5 hover:text-brand"
+                >
+                  <a
+                    href={href}
+                    target={href.startsWith('mailto:') ? undefined : '_blank'}
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                </Button>
+              ))}
             </div>
           </div>
 
-          {/* Middle Section */}
-          <div className="flex flex-col items-center text-sm text-muted-foreground gap-3">
+          {/* ── Navigation ───────────────────────────────────── */}
+          <nav aria-label="Footer">
+            <ColumnLabel>Navigate</ColumnLabel>
 
-            {/* Phone */}
-            <a
-              href="tel:+918815169427"
-              className="
-                flex items-center gap-2
-                hover:text-green-600
-                dark:hover:text-green-400
-                transition-colors
-              "
-            >
-              <Phone className="h-4 w-4 text-green-500" />
+            {/* Two columns on phones so six links cost three rows, not six. */}
+            <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 sm:grid-cols-3 md:grid-cols-1 md:gap-y-0.5">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="group inline-flex items-center gap-1 py-1.5 text-sm text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    {item.name}
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-              +91 8815169427
-            </a>
+          {/* ── Contact ──────────────────────────────────────── */}
+          <div>
+            <ColumnLabel>Get in touch</ColumnLabel>
 
-            {/* Email */}
-            <a
-              href="mailto:prajapatiashwani62@gmail.com"
-              className="
-                flex items-center gap-2
-                hover:text-green-600
-                dark:hover:text-green-400
-                transition-colors
-              "
-            >
-              <Mail className="h-4 w-4 text-green-500" />
+            <ul className="mt-4 space-y-1">
+              {CONTACT.map(({ icon: Icon, value, href, breakAll }) => {
+                const body = (
+                  <>
+                    <Icon className="h-4 w-4 shrink-0 text-brand" />
+                    <span className={breakAll ? 'break-all' : ''}>{value}</span>
+                  </>
+                );
 
-              prajapatiashwani62@gmail.com
-            </a>
-          </div>
-
-          {/* Right Section */}
-          <div className="flex items-center gap-3">
-
-            {/* GitHub */}
-            <Button
-              variant="outline"
-              size="icon"
-              asChild
-              className="
-                rounded-2xl
-                border-border
-                hover:border-green-500/30
-                hover:bg-green-500/5
-                hover:text-green-600
-                transition-all duration-300
-              "
-            >
-              <a
-                href="https://github.com/ashwaniprajapati049"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </Button>
-
-            {/* LinkedIn */}
-            <Button
-              variant="outline"
-              size="icon"
-              asChild
-              className="
-                rounded-2xl
-                border-border
-                hover:border-green-500/30
-                hover:bg-green-500/5
-                hover:text-green-600
-                transition-all duration-300
-              "
-            >
-              <a
-                href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </Button>
-
-            {/* Email */}
-            <Button
-              variant="outline"
-              size="icon"
-              asChild
-              className="
-                rounded-2xl
-                border-border
-                hover:border-green-500/30
-                hover:bg-green-500/5
-                hover:text-green-600
-                transition-all duration-300
-              "
-            >
-              <a
-                href="mailto:prajapatiashwani62@gmail.com"
-                aria-label="Email"
-              >
-                <Mail className="h-5 w-5" />
-              </a>
-            </Button>
+                return (
+                  <li key={value}>
+                    {href ? (
+                      <a
+                        href={href}
+                        className="flex items-center gap-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:text-brand"
+                      >
+                        {body}
+                      </a>
+                    ) : (
+                      <div className="flex items-center gap-2.5 py-1.5 text-sm text-muted-foreground">
+                        {body}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
 
-        {/* Bottom Line */}
-        <div className="mt-8 pt-5 border-t border-border text-center">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Ashwani Prajapati.
-            Built with Next.js & Tailwind CSS.
+        <div className="rule my-7" />
+
+        <div className="flex flex-col items-center justify-between gap-2 text-center text-xs text-muted-foreground sm:flex-row sm:text-left">
+          <p>
+            © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </p>
+          <p>Built with Next.js, Tailwind CSS &amp; Framer Motion.</p>
         </div>
       </div>
     </footer>

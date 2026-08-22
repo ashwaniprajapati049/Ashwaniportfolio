@@ -1,474 +1,233 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Github, ExternalLink, ArrowUpRight, Check, FolderGit2 } from 'lucide-react';
 
-import {
-  motion,
-  AnimatePresence,
-} from "framer-motion";
-
-import { Button } from "@/components/ui/button";
-
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-
-import {
-  Github,
-  ExternalLink,
-  ChevronRight,
-  Layers3,
-  FolderKanban,
-} from "lucide-react";
-
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  details: string;
-  technologies: string[];
-  github: string;
-  live: string;
-  accent: string;
-  stats: string;
-};
-
-const projects: Project[] = [
-  {
-    id: 1,
-
-title: "Smart Dues Management System",
-
-description:
-  "A modern full-stack web application designed to streamline student dues management, receipt tracking, and admin operations through secure and efficient digital workflows.",
-
-details:
-  "Developed a complete student dues management platform using Java, Spring Boot, and MySQL with secure authentication, receipt verification, semester-wise dues tracking, and scalable REST API architecture. Built responsive admin and student dashboards, optimized backend operations, and implemented clean UI workflows to improve efficiency, transparency, and overall user experience within the institution.",
-
-technologies: [
-  "Java",
-  "Spring Boot",
-  "REST APIs",
-  "MySQL",
-  "JDBC",
-  "HTML",
-  "CSS",
-  "Authentication",
-  "Dashboard Development",
-  "Backend Architecture",
-  "Responsive UI",
-],
-
-    github:
-      "https://github.com/ashwaniprajapati049",
-
-    live: "",
-
-    accent: "#16A34A",
-
-    stats: "Full Stack System",
-  },
-
-  {
-    id: 2,
-
-title: "Snake Game",
-
-description:
-  "A classic desktop-based Snake Game featuring smooth gameplay mechanics, responsive controls, and real-time score tracking built using Java.",
-
-details:
-  "Developed an interactive Snake Game application using Java Swing and object-oriented programming principles. Implemented real-time movement logic, collision detection, keyboard controls, score management, and timer-based rendering to create a smooth and engaging gaming experience. Focused on performance optimization, game state management, and responsive gameplay mechanics.",
-
-technologies: [
-  "Java",
-  "Swing",
-  "JFrame",
-  "Game Logic",
-  "OOP",
-  "Event Handling",
-  "Timer-Based Rendering",
-  "Keyboard Controls",
-],
-    github:
-      "https://github.com/ashwaniprajapati049",
-
-    live: "",
-
-    accent: "#D97706",
-
-    stats: "Desktop Application",
-  },
-
-  {
-   id: 3,
-
-title: "Real-Time Weather Monitoring",
-
-description:
-  "A real-time weather monitoring application designed to display live environmental conditions, temperature insights, and weather analytics through dynamic data visualization.",
-
-details:
-  "Developed a weather monitoring system using Java and API integration to fetch and process real-time environmental data including temperature, humidity, rainfall, and weather conditions. Implemented data handling, live updates, and clean information visualization while applying object-oriented programming concepts and backend processing techniques for accurate and efficient monitoring.",
-
-technologies: [
-  "Java",
-  "REST APIs",
-  "Data Processing",
-  "OOP",
-  "Real-Time Monitoring",
-  "API Integration",
-  "Backend Logic",
-  "Weather Analytics",
-],
-
-    github:
-      "https://github.com/ashwaniprajapati049",
-
-    live: "",
-
-    accent: "#0891B2",
-
-    stats: "Real-Time Monitoring",
-  },
-];
+} from '@/components/ui/dialog';
+import { SectionHeading } from '@/components/ui/section-heading';
+import { TechPill } from '@/components/ui/tech-pill';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { projects, profile, type Project } from '@/lib/data';
 
 export function ProjectSection() {
-  const [selectedProject, setSelectedProject] =
-    useState<Project | null>(null);
+  const [selected, setSelected] = useState<Project | null>(null);
 
   return (
-    <section
-      id="projects"
-      className="
-        relative overflow-hidden
-        py-16 md:py-24
-        bg-gradient-to-b
-        from-background
-        via-background
-        to-green-500/5
-      "
-    >
-      {/* Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+    <section id="projects" className="relative overflow-hidden py-16 md:py-20">
+      <div className="glow left-0 top-1/3 h-[440px] w-[440px]" />
 
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
+      <div className="container relative z-10 max-w-6xl">
+        <SectionHeading
+          title={
+            <>
+              Things I&apos;ve <span className="text-gradient">built</span>
+            </>
+          }
+          description="Backend systems, API integrations and desktop applications — each one solving a problem end to end."
+        />
 
-        {/* Header */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 14,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-tight">
-            Featured Projects
-          </h2>
-
-          <p className="mt-4 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground">
-            Selected projects focused on backend systems,
-            frontend engineering, and scalable applications.
-          </p>
-        </motion.div>
-
-        {/* Projects */}
-        <div className="space-y-5">
-
-          {projects.map((project, index) => (
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {projects.map((project, i) => (
             <motion.div
               key={project.id}
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{ once: true }}
-              transition={{
-                delay: index * 0.08,
-              }}
-              whileHover={{
-                y: -3,
-              }}
-              className="
-                group relative overflow-hidden
-                rounded-3xl
-                border border-border
-                bg-background/60
-                backdrop-blur-xl
-                hover:border-green-500/20
-                transition-all duration-300
-              "
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className={project.featured ? 'md:col-span-2' : ''}
             >
-              {/* Accent Glow */}
-              <div
-                className="absolute inset-y-0 left-0 w-1"
-                style={{
-                  background:
-                    project.accent,
-                }}
-              />
+              <SpotlightCard
+                className="flex h-full flex-col"
+                style={{ ['--h' as string]: project.hue }}
+              >
+                {/* Accent rail, tinted per project */}
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-1"
+                  style={{ background: `hsl(${project.hue} 62% 45%)` }}
+                />
 
-              <div className="p-5 md:p-7">
-
-                {/* Top */}
-                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-
-                  {/* Left */}
-                  <div className="flex-1 min-w-0">
-
-                    {/* Badge */}
-                    <div
-                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold mb-4"
+                <div className="flex flex-1 flex-col p-6 md:p-7">
+                  <div className="flex items-start justify-between gap-4">
+                    <span
+                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold"
                       style={{
-                        background: `${project.accent}15`,
-                        color: project.accent,
+                        background: `hsl(${project.hue} 62% 45% / 0.12)`,
+                        color: `hsl(${project.hue} 62% 38%)`,
                       }}
                     >
-                      <FolderKanban className="h-3.5 w-3.5" />
+                      <FolderGit2 className="h-3.5 w-3.5" />
+                      {project.tagline}
+                    </span>
 
-                      {project.stats}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
-                      {project.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="mt-3 text-sm md:text-base leading-relaxed text-muted-foreground max-w-3xl">
-                      {project.description}
-                    </p>
-
-                    {/* Tech */}
-                    <div className="mt-5">
-
-                      <div className="flex items-center gap-2 mb-3">
-                        <Layers3 className="h-4 w-4 text-green-500" />
-
-                        <p className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground">
-                          Technologies
-                        </p>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="
-                                px-3 py-1
-                                rounded-full
-                                text-[11px]
-                                font-medium
-                                border border-border
-                                bg-background/50
-                              "
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
-                      </div>
-                    </div>
+                    {project.featured && (
+                      <span className="rounded-full border border-brand/25 bg-brand/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand">
+                        Featured
+                      </span>
+                    )}
                   </div>
 
-                  {/* Right */}
-                  <div className="flex lg:flex-col items-center lg:items-end gap-3">
+                  <h3 className="mt-4 font-display text-xl font-semibold leading-snug tracking-tight md:text-2xl">
+                    {project.title}
+                  </h3>
 
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 6).map((tech) => (
+                      <TechPill key={tech} label={tech} />
+                    ))}
+                    {project.technologies.length > 6 && (
+                      <span className="rounded-full border border-border bg-secondary px-3 py-1 text-[11px] font-medium text-muted-foreground">
+                        +{project.technologies.length - 6}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
                     <Button
                       variant="outline"
-                      className="
-                        rounded-full gap-2
-                        hover:border-green-500/30
-                        hover:bg-green-500/5
-                        hover:text-green-600
-                      "
-                      onClick={() =>
-                        setSelectedProject(project)
-                      }
+                      className="group/btn rounded-full"
+                      onClick={() => setSelected(project)}
                     >
-                      View Details
-
-                      <ChevronRight className="h-4 w-4" />
+                      Case study
+                      <ArrowUpRight className="ml-1.5 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                     </Button>
 
-                    <div className="flex items-center gap-2">
-
+                    <Button asChild size="icon" variant="ghost" className="rounded-full border border-border">
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${project.title} source on GitHub`}
                       >
-                        <Button
-                          size="icon"
-                          variant="outline"
-                          className="rounded-2xl"
-                        >
-                          <Github className="h-4 w-4" />
-                        </Button>
+                        <Github className="h-4 w-4" />
                       </a>
+                    </Button>
 
-                      {project.live && (
+                    {project.live && (
+                      <Button asChild size="icon" variant="ghost" className="rounded-full border border-border">
                         <a
                           href={project.live}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`${project.title} live demo`}
                         >
-                          <Button
-                            size="icon"
-                            variant="outline"
-                            className="rounded-2xl"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
+                          <ExternalLink className="h-4 w-4" />
                         </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <Dialog
-            open={!!selectedProject}
-            onOpenChange={() =>
-              setSelectedProject(null)
-            }
-          >
-            <DialogContent
-              className="
-                w-[95vw]
-                sm:max-w-[700px]
-                rounded-3xl
-                border border-border
-                p-0 overflow-hidden
-              "
-            >
-              {/* Header */}
-              <div
-                className="p-6 md:p-8"
-                style={{
-                  background: `${selectedProject.accent}10`,
-                }}
-              >
-                <DialogTitle className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
-                  {selectedProject.title}
-                </DialogTitle>
-
-                <p
-                  className="mt-3 text-sm font-medium"
-                  style={{
-                    color:
-                      selectedProject.accent,
-                  }}
-                >
-                  {selectedProject.stats}
-                </p>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 md:p-8">
-
-                <DialogHeader>
-                  <DialogDescription className="text-sm md:text-base leading-relaxed text-muted-foreground">
-                    {selectedProject.details}
-                  </DialogDescription>
-                </DialogHeader>
-
-                {/* Technologies */}
-                <div className="mt-8">
-
-                  <p className="text-[11px] uppercase tracking-[0.25em] font-semibold text-muted-foreground mb-4">
-                    Technologies Used
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map(
-                      (tech) => (
-                        <span
-                          key={tech}
-                          className="
-                            px-3 py-1 rounded-full
-                            text-xs font-medium
-                            border border-border
-                            bg-background/50
-                          "
-                        >
-                          {tech}
-                        </span>
-                      )
+                      </Button>
                     )}
                   </div>
                 </div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
+        </div>
 
-                {/* Actions */}
-                <div className="flex flex-col sm:flex-row gap-3 pt-8 mt-8 border-t border-border">
+        {/* Link out to the rest of the work */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-10 text-center"
+        >
+          <Button asChild variant="ghost" className="group rounded-full text-muted-foreground hover:text-brand">
+            <a href={profile.github} target="_blank" rel="noopener noreferrer">
+              <Github className="mr-2 h-4 w-4" />
+              More on GitHub
+              <ArrowUpRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </Button>
+        </motion.div>
+      </div>
 
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-full gap-2"
+      {/* Case study dialog */}
+      <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
+        <DialogContent className="max-h-[85vh] w-[95vw] overflow-y-auto rounded-3xl p-0 sm:max-w-[680px]">
+          {selected && (
+            <>
+              <div
+                className="p-6 md:p-8"
+                style={{ background: `hsl(${selected.hue} 62% 45% / 0.1)` }}
+              >
+                <DialogHeader className="space-y-3 text-left">
+                  <span
+                    className="w-fit rounded-full px-3 py-1 text-[11px] font-semibold"
+                    style={{
+                      background: `hsl(${selected.hue} 62% 45% / 0.18)`,
+                      color: `hsl(${selected.hue} 62% 34%)`,
+                    }}
                   >
-                    <a
-                      href={
-                        selectedProject.github
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-4 w-4" />
-                      GitHub
+                    {selected.tagline}
+                  </span>
+                  <DialogTitle className="font-display text-2xl font-bold leading-tight tracking-tight md:text-3xl">
+                    {selected.title}
+                  </DialogTitle>
+                </DialogHeader>
+              </div>
+
+              <div className="p-6 md:p-8">
+                <DialogDescription className="text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+                  {selected.details}
+                </DialogDescription>
+
+                <div className="mt-7">
+                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                    What it does
+                  </p>
+                  <ul className="space-y-2.5">
+                    {selected.highlights.map((point) => (
+                      <li key={point} className="flex gap-3 text-sm leading-relaxed">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                        <span className="text-muted-foreground">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-7">
+                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                    Built with
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {selected.technologies.map((tech) => (
+                      <TechPill key={tech} label={tech} size="md" />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row">
+                  <Button asChild variant="outline" className="rounded-full">
+                    <a href={selected.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-2 h-4 w-4" />
+                      View source
                     </a>
                   </Button>
-
-                  {selectedProject.live && (
-                    <Button
-                      asChild
-                      className="
-                        rounded-full
-                        bg-green-600
-                        hover:bg-green-700
-                        text-white
-                        gap-2
-                      "
-                    >
-                      <a
-                        href={
-                          selectedProject.live
-                        }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        Live Demo
+                  {selected.live && (
+                    <Button asChild className="rounded-full">
+                      <a href={selected.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Live demo
                       </a>
                     </Button>
                   )}
                 </div>
               </div>
-            </DialogContent>
-          </Dialog>
-        )}
-      </AnimatePresence>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

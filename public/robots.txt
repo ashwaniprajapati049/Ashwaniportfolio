@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ashwaniprajapati.vercel.app/sitemap.xml

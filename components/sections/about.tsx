@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-
+import { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Download,
   Mail,
@@ -13,484 +12,234 @@ import {
   Briefcase,
   GraduationCap,
   ChevronDown,
-  ChevronUp,
   Trophy,
   Brain,
   BookOpen,
   Lightbulb,
-  Code2,
   Sparkles,
-} from "lucide-react";
+} from 'lucide-react';
 
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { LeetCodeIcon } from '@/components/icons/leetcode';
+import { SectionHeading } from '@/components/ui/section-heading';
+import { profile, education, interests } from '@/lib/data';
 
-const SKILLS = [
-  { name: "Java", bg: "#FAECE7", text: "#712B13" },
+const ICONS = { Trophy, Brain, BookOpen, Lightbulb } as const;
 
-  { name: "Spring Boot", bg: "#E1F5EE", text: "#085041" },
-
-  { name: "Angular", bg: "#FCEBEB", text: "#791F1F" },
-
-  { name: "TypeScript", bg: "#E6F1FB", text: "#0C447C" },
-
-  { name: "JavaScript", bg: "#FAEEDA", text: "#633806" },
-
-  { name: "C#", bg: "#EEEDFE", text: "#3C3489" },
-
-  { name: ".NET", bg: "#EEEDFE", text: "#3C3489" },
-
-  { name: "MySQL", bg: "#E1F5EE", text: "#085041" },
-
-  { name: "REST APIs", bg: "#E6F1FB", text: "#0C447C" },
-
-  { name: "Tailwind CSS", bg: "#FBEAF0", text: "#72243E" },
-
-  { name: "HTML5", bg: "#FAECE7", text: "#712B13" },
-
-  { name: "CSS3", bg: "#E6F1FB", text: "#0C447C" },
-
-  { name: "Git", bg: "#FAEEDA", text: "#633806" },
-
-  { name: "GitHub", bg: "#ECECEC", text: "#222222" },
-
-  { name: "Responsive Design", bg: "#E1F5EE", text: "#085041" },
-
-  { name: "Frontend Development", bg: "#FBEAF0", text: "#72243E" },
-
-  { name: "Backend Development", bg: "#EEEDFE", text: "#3C3489" },
-
-  { name: "API Integration", bg: "#E6F1FB", text: "#0C447C" },
-
-  { name: "Dashboard Development", bg: "#FAECE7", text: "#712B13" },
-
-  { name: "AI Integration", bg: "#E1F5EE", text: "#085041" },
-
-  { name: "UI/UX", bg: "#FCEBEB", text: "#791F1F" },
-
-  { name: "Agile", bg: "#FAEEDA", text: "#633806" },
-
-  { name: "OOP", bg: "#EEEDFE", text: "#3C3489" },
-];
-
-const INTERESTS = [
-  { icon: Trophy, label: "Strategic Chess" },
-  { icon: Brain, label: "Problem Solving" },
-  { icon: BookOpen, label: "Technical Reading" },
-  { icon: Lightbulb, label: "Exploring New Ideas" },
-];
-
-const STATS = [
-  { num: "1+", label: "Years Experience" },
-  { num: "2", label: "Companies" },
-  { num: "3+", label: "Projects" },
-  { num: "6+", label: "Technologies" },
-];
+/** Reusable card header: icon tile + title + one line of context. */
+function CardHeader({
+  icon: Icon,
+  title,
+  subtitle,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div className="mb-5 flex items-center gap-3">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-brand/20 bg-brand/10">
+        <Icon className="h-5 w-5 text-brand" />
+      </div>
+      <div className="min-w-0">
+        <h3 className="font-semibold leading-tight">{title}</h3>
+        <p className="text-sm text-muted-foreground">{subtitle}</p>
+      </div>
+    </div>
+  );
+}
 
 export function AboutSection() {
-  const [showBio, setShowBio] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <section
-      id="about"
-      className="
-        relative overflow-hidden
-        py-16 md:py-24
-        bg-gradient-to-b
-        from-background
-        via-background
-        to-green-500/5
-      "
-    >
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] md:w-[700px] h-[500px] md:h-[700px] bg-green-500/10 blur-3xl rounded-full pointer-events-none" />
+    <section id="about" className="relative overflow-hidden py-16 md:py-20">
+      <div className="glow left-1/2 top-10 h-[500px] w-[500px] -translate-x-1/2" />
 
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-tight">
-            Passionate About
-            <span className="block text-green-600 dark:text-green-400">
-              Building Modern Web Apps
-            </span>
-          </h2>
+      <div className="container relative z-10 max-w-6xl">
+        <SectionHeading
+          title={
+            <>
+              Engineering that holds up
+              <span className="block text-gradient">as the product grows</span>
+            </>
+          }
+          description="My background, the tools I reach for, and what keeps me interested in the work."
+        />
 
-          <p className="mt-4 md:mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-muted-foreground px-2">
-            A little about my background, technical expertise, and the passion
-            that drives my work as a software engineer.
-          </p>
-        </motion.div>
-
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-6 md:gap-8">
-          {/* LEFT SIDE */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-[340px_1fr]">
+          {/* ── Profile column ───────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5 }}
-            className="space-y-5"
+            className="lg:sticky lg:top-28 lg:self-start"
           >
-            {/* Profile Card */}
-            <div
-              className="
-                rounded-3xl
-                border border-white/10
-                bg-gradient-to-br
-                from-white/70
-                to-white/40
-                dark:from-zinc-900/80
-                dark:to-zinc-950/60
-                backdrop-blur-xl
-                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-                dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-                overflow-hidden
-              "
-            >
-              <div className="h-1.5 w-full bg-gradient-to-r from-green-600 via-green-400 to-emerald-300" />
+            <div className="surface overflow-hidden rounded-3xl">
+              <div className="h-1.5 w-full bg-gradient-to-r from-brand via-emerald-400 to-brand" />
 
-              {/* Avatar + Info */}
-              <div className="p-5 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
-                {/* Avatar */}
-                <div className="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden ring-2 ring-green-500/20">
+              <div className="flex flex-col items-center gap-4 p-6 text-center sm:flex-row sm:items-start sm:text-left">
+                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl ring-2 ring-brand/25">
                   <Image
-                    src="https://res.cloudinary.com/dwciao4x3/image/upload/v1775745356/WhatsApp_Image_2026-04-09_at_8.03.56_PM_vwu0ja.jpg"
-                    alt="Ashwani Prajapati"
+                    src={profile.avatar}
+                    alt={profile.name}
                     fill
-                    priority
+                    sizes="80px"
                     className="object-cover object-top"
                   />
                 </div>
 
-                {/* Info */}
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-lg font-semibold tracking-tight leading-tight break-words">
-                    Ashwani Prajapati
+                  <h3 className="text-lg font-semibold leading-tight tracking-tight">
+                    {profile.name}
                   </h3>
-
-                  <p className="text-sm text-muted-foreground mt-0.5">
-                    Software Engineer · Full Stack
+                  <p className="mt-0.5 text-sm text-muted-foreground">
+                    {profile.role} · {profile.headline}
                   </p>
 
-                  <div className="mt-2 flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-2">
+                  <div className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-2 sm:justify-start">
                     <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <MapPin className="h-3 w-3 text-green-500 shrink-0" />
-                      Bengaluru, India
+                      <MapPin className="h-3.5 w-3.5 shrink-0 text-brand" />
+                      {profile.location}
                     </span>
-
                     <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <Briefcase className="h-3 w-3 text-green-500 shrink-0" />
-                      CA-One Tech
+                      <Briefcase className="h-3.5 w-3.5 shrink-0 text-brand" />
+                      {profile.company}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="mx-5 border-t border-border" />
+              <div className="rule mx-6 w-auto" />
 
-              {/* Buttons */}
-              <div className="p-5 flex flex-col gap-3">
-                <Button
-                  asChild
-                  className="
-                    w-full rounded-2xl
-                    bg-green-600
-                    hover:bg-green-700
-                    text-white
-                    shadow-lg shadow-green-500/20
-                  "
-                >
-                  <a
-                    href="https://drive.google.com/file/d/1HVuTCTX8wUFEttt3ZmEBlVoA4w-h3SCD/view?usp=drive_link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Download className="h-4 w-4 mr-2 shrink-0" />
+              <div className="flex flex-col gap-3 p-6">
+                <Button asChild className="w-full rounded-2xl">
+                  <a href={profile.resume} target="_blank" rel="noopener noreferrer">
+                    <Download className="mr-2 h-4 w-4 shrink-0" />
                     Download CV
                   </a>
                 </Button>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Button asChild variant="outline" className="rounded-2xl">
-                    <a
-                      href="https://github.com/ashwaniprajapati049"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-4 w-4 mr-2 shrink-0" />
+                {/* Three across, so labels need the tighter text size to fit. */}
+                <div className="grid grid-cols-3 gap-2">
+                  <Button asChild variant="outline" className="rounded-2xl px-2 text-xs">
+                    <a href={profile.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-1.5 h-4 w-4 shrink-0" />
                       GitHub
                     </a>
                   </Button>
-
-                  <Button asChild variant="outline" className="rounded-2xl">
-                    <a
-                      href="https://www.linkedin.com/in/ashwani-prajapati-43744222a/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Linkedin className="h-4 w-4 mr-2 shrink-0" />
+                  <Button asChild variant="outline" className="rounded-2xl px-2 text-xs">
+                    <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="mr-1.5 h-4 w-4 shrink-0" />
                       LinkedIn
                     </a>
                   </Button>
+                  <Button asChild variant="outline" className="rounded-2xl px-2 text-xs">
+                    <a href={profile.leetcode} target="_blank" rel="noopener noreferrer">
+                      <LeetCodeIcon className="mr-1.5 h-4 w-4 shrink-0" />
+                      LeetCode
+                    </a>
+                  </Button>
                 </div>
-              </div>
-            </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-3">
-              {STATS.map((stat) => (
-                <motion.div
-                  key={stat.label}
-                  whileHover={{ y: -3 }}
-                  className="
-                    rounded-2xl
-                    border border-border
-                    bg-background/50
-                    backdrop-blur-sm
-                    p-3 md:p-4
-                    text-center
-                    hover:border-green-500/30
-                    transition-all duration-300
-                  "
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="h-auto w-full whitespace-normal rounded-2xl border border-border py-3 text-xs hover:border-brand/40 hover:bg-brand/5 hover:text-brand"
                 >
-                  <p className="text-xl md:text-2xl font-bold">{stat.num}</p>
-
-                  <p className="text-[11px] md:text-xs text-muted-foreground mt-1 leading-relaxed">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
+                  <a href={`mailto:${profile.email}`}>
+                    <Mail className="mr-2 h-4 w-4 shrink-0" />
+                    <span className="break-all">{profile.email}</span>
+                  </a>
+                </Button>
+              </div>
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE */}
+          {/* ── Detail column ────────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-5"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-6"
           >
             {/* Bio */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-              <div className="flex items-start sm:items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                  <Sparkles className="h-5 w-5 text-green-500" />
-                </div>
+            <div className="surface rounded-3xl p-6 md:p-7">
+              <CardHeader
+                icon={Sparkles}
+                title="Professional bio"
+                subtitle="Journey & experience"
+              />
 
-                <div className="min-w-0">
-                  <h3 className="font-semibold">Professional Bio</h3>
-
-                  <p className="text-sm text-muted-foreground">
-                    About my journey & experience
-                  </p>
-                </div>
-              </div>
-
-              <AnimatePresence mode="wait">
-                {showBio ? (
-                  <motion.p
-                    key="full"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
-                  >
-                    Full Stack Engineer at{" "}
-                    <span className="font-medium text-green-600 dark:text-green-400">
-                      CA-One Tech
-                    </span>
-                    , Bengaluru, focused on building scalable web applications,
-                    modern Angular dashboards, and high-performance backend
-                    systems using Spring Boot. Passionate about creating
-                    seamless user experiences with clean design and efficient
-                    architecture.
-                  </motion.p>
-                ) : (
-                  <motion.p
-                    key="short"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="text-sm md:text-base text-muted-foreground leading-relaxed break-words"
-                  >
-                    Full Stack Engineer at{" "}
-                    <span className="font-medium text-green-600 dark:text-green-400">
-                      CA-One Tech
-                    </span>
-                    , building scalable applications, responsive Angular
-                    interfaces, and modern backend systems with a strong focus
-                    on performance and user experience.
-                  </motion.p>
-                )}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.p
+                  key={expanded ? 'long' : 'short'}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-sm leading-relaxed text-muted-foreground md:text-[15px]"
+                >
+                  {expanded ? profile.bioLong : profile.bioShort}
+                </motion.p>
               </AnimatePresence>
 
               <button
-                onClick={() => setShowBio((v) => !v)}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-green-600 dark:text-green-400 hover:underline"
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+                aria-expanded={expanded}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
               >
-                {showBio ? (
-                  <>
-                    <ChevronUp className="h-4 w-4" />
-                    Read less
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="h-4 w-4" />
-                    Read more
-                  </>
-                )}
+                {expanded ? 'Read less' : 'Read more'}
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`}
+                />
               </button>
             </div>
 
-            {/* Skills */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-              <div className="flex items-start sm:items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                  <Code2 className="h-5 w-5 text-green-500" />
-                </div>
-
-                <div>
-                  <h3 className="font-semibold">Core Skills</h3>
-
-                  <p className="text-sm text-muted-foreground">
-                    Technologies I work with
-                  </p>
-                </div>
+            {/* Education + interests */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="surface rounded-3xl p-6 md:p-7">
+                <CardHeader
+                  icon={GraduationCap}
+                  title="Education"
+                  subtitle="Academic background"
+                />
+                <p className="font-medium leading-snug">{education.degree}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {education.school}
+                </p>
+                <span className="mt-4 inline-block rounded-full border border-brand/20 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+                  {education.period}
+                </span>
               </div>
 
-              <div className="flex flex-wrap gap-2">
-                {SKILLS.map((skill) => (
-                  <motion.span
-                    key={skill.name}
-                    whileHover={{
-                      y: -2,
-                      scale: 1.03,
-                    }}
-                    className="
-                      px-3 py-2 md:px-4
-                      rounded-full
-                      text-xs md:text-sm
-                      font-medium
-                      cursor-default
-                      break-words
-                    "
-                    style={{
-                      background: skill.bg,
-                      color: skill.text,
-                    }}
-                  >
-                    {skill.name}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-
-            {/* Education */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-              <div className="flex items-start sm:items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                  <GraduationCap className="h-5 w-5 text-green-500" />
-                </div>
-
-                <div>
-                  <h3 className="font-semibold">Education</h3>
-
-                  <p className="text-sm text-muted-foreground">
-                    Academic background
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                  <GraduationCap className="h-6 w-6 text-green-500" />
-                </div>
-
-                <div className="min-w-0">
-                  <p className="font-medium break-words">
-                    B.Tech — Computer Science & Engineering
-                  </p>
-
-                  <p className="text-sm text-muted-foreground mt-1 break-words">
-                    Radharaman Institute of Technology & Science, Bhopal
-                  </p>
-
-                  <span className="inline-block mt-3 text-xs px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 font-medium">
-                    2021 – 2025
-                  </span>
-                </div>
+              <div className="surface rounded-3xl p-6 md:p-7">
+                <CardHeader
+                  icon={Lightbulb}
+                  title="Interests"
+                  subtitle="Outside the editor"
+                />
+                <ul className="space-y-2.5">
+                  {interests.map(({ icon, label }) => {
+                    const Icon = ICONS[icon as keyof typeof ICONS];
+                    return (
+                      <li
+                        key={label}
+                        className="flex items-center gap-3 text-sm text-muted-foreground"
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-brand/10">
+                          <Icon className="h-4 w-4 text-brand" />
+                        </span>
+                        {label}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
-
-            {/* Interests */}
-            <div className="rounded-3xl border border-border bg-background/50 backdrop-blur-sm p-5 md:p-6">
-              <div className="flex items-start sm:items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                  <Lightbulb className="h-5 w-5 text-green-500" />
-                </div>
-
-                <div>
-                  <h3 className="font-semibold">Interests</h3>
-
-                  <p className="text-sm text-muted-foreground">
-                    Things I enjoy outside coding
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {INTERESTS.map(({ icon: Icon, label }) => (
-                  <motion.div
-                    key={label}
-                    whileHover={{ y: -2 }}
-                    className="
-                        flex items-center gap-3
-                        rounded-2xl border border-border
-                        bg-background/50
-                        p-4
-                        hover:border-green-500/30
-                        transition-all duration-300
-                      "
-                  >
-                    <div className="w-10 h-10 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0">
-                      <Icon className="h-5 w-5 text-green-500" />
-                    </div>
-
-                    <span className="text-sm font-medium text-muted-foreground break-words">
-                      {label}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Email CTA */}
-            <Button
-              asChild
-              variant="outline"
-              className="
-                w-full min-h-[48px]
-                rounded-2xl border-border
-                hover:border-green-500/30
-                hover:bg-green-500/5
-                hover:text-green-600
-                transition-all duration-300
-              "
-            >
-              <a
-                href="mailto:prajapatiashwani62@gmail.com"
-                className="break-all text-center"
-              >
-                <Mail className="h-4 w-4 mr-2 shrink-0" />
-                prajapatiashwani62@gmail.com
-              </a>
-            </Button>
           </motion.div>
         </div>
       </div>
