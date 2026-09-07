@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { LeetCodeIcon } from '@/components/icons/leetcode';
@@ -17,7 +17,6 @@ const SOCIALS = [
 
 const CONTACT = [
   { icon: Mail, value: profile.email, href: `mailto:${profile.email}`, breakAll: true },
-  { icon: Phone, value: profile.phone, href: profile.phoneHref, breakAll: false },
   { icon: MapPin, value: profile.location, href: undefined, breakAll: false },
 ];
 

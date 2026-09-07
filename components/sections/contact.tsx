@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import emailjs from '@emailjs/browser';
 import {
   Mail,
-  Phone,
   MapPin,
   Github,
   Linkedin,
@@ -37,7 +36,7 @@ const EMPTY: FormState = { name: '', email: '', message: '' };
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-  { icon: Phone, label: 'Phone', value: profile.phone, href: profile.phoneHref },
+  { icon: Linkedin, label: 'LinkedIn', value: 'ashwani-prajapati', href: profile.linkedin },
   { icon: MapPin, label: 'Location', value: profile.location, href: undefined },
 ];
 

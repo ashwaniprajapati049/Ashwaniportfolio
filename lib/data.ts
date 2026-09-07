@@ -13,6 +13,11 @@ export const profile = {
   company: 'CA-One Tech',
   location: 'Bengaluru, India',
   email: 'prajapatiashwani62@gmail.com',
+  /*
+   * Deliberately not rendered anywhere public — a plaintext number on an
+   * indexed page is a scraping target. Reachable via email and LinkedIn;
+   * the number is on the CV. Kept here so it is one edit to restore.
+   */
   phone: '+91 8815169427',
   phoneHref: 'tel:+918815169427',
   github: 'https://github.com/ashwaniprajapati049',
@@ -43,11 +48,15 @@ export const profile = {
   ],
 };
 
+/*
+ * Ordered so breadth reads first. Leading with tenure anchors the reader on
+ * "junior" before they reach any of the actual work.
+ */
 export const stats = [
-  { num: '1+', label: 'Years experience' },
-  { num: '2', label: 'Companies' },
-  { num: '4', label: 'Roles held' },
   { num: '10+', label: 'Technologies' },
+  { num: '4', label: 'Roles held' },
+  { num: '2', label: 'Companies' },
+  { num: '1+', label: 'Years experience' },
 ];
 
 export const education = {

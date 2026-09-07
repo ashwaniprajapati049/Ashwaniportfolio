@@ -83,9 +83,14 @@ export function Navbar() {
           <nav
             className={cn(
               'flex h-16 items-center justify-between rounded-2xl border px-4 transition-all duration-300 md:px-5',
+              /*
+               * The bar must stay opaque enough that section headings passing
+               * underneath don't read through it — at 30/60% they showed
+               * through and looked like a clipped heading.
+               */
               isScrolled
-                ? 'surface border-border/70'
-                : 'border-transparent bg-background/30 backdrop-blur-md'
+                ? 'surface border-border/70 bg-background/95'
+                : 'border-transparent bg-background/80 backdrop-blur-md'
             )}
           >
             {/* Brand */}

@@ -85,7 +85,6 @@ const personJsonLd = {
   image: profile.avatar,
   jobTitle: profile.role,
   email: `mailto:${profile.email}`,
-  telephone: profile.phone,
   address: { '@type': 'PostalAddress', addressLocality: 'Bengaluru', addressCountry: 'IN' },
   worksFor: { '@type': 'Organization', name: profile.company },
   sameAs: [profile.github, profile.linkedin, profile.leetcode],
